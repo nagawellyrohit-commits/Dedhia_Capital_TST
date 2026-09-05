@@ -1776,15 +1776,10 @@
 
             // Bind click events on rail cards
             $railTrack.find('.calc-rail-card').on('click', function(e) {
+                e.preventDefault();
                 const targetIdx = parseInt($(this).data('calc-idx'), 10);
-                const targetId = $(this).data('calc-id');
-
-                if (isHomePage) {
-                    window.location.href = `calculators.html?calc=${targetId}#financial-calculators`;
-                } else {
-                    if (targetIdx !== activeCalcIndex) {
-                        switchCalculator(targetIdx);
-                    }
+                if (targetIdx !== activeCalcIndex) {
+                    switchCalculator(targetIdx);
                 }
             });
         }
@@ -2206,6 +2201,11 @@
         // Initialize Rail & Active Calculator
         renderRail();
         renderActiveCalculator(false);
+
+        // Prevent unintentional page reloads on static forms
+        $('form').on('submit', function(e) {
+            e.preventDefault();
+        });
     })();
 
 })(jQuery);
