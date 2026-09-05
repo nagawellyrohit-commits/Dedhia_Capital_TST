@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Service Details - DEDHIA CAPITAL</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="DEDHIA CAPITAL, Mutual Funds, Bonds, NCD, Corporate FD, Wealth Planning, Service Detail" name="keywords">
+    <meta content="Detailed investment and wealth management services at DEDHIA CAPITAL." name="description">
+
+    <link href="img/favicon.ico" rel="icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        .service-detail-shell {
+            padding: 60px 0 80px;
+        }
+        
+        .detail-card {
+            background: rgba(255, 255, 255, 0.86);
+            border: 1px solid rgba(201, 149, 75, 0.24);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 16px 40px rgba(11, 22, 40, 0.06);
+            backdrop-filter: blur(18px) saturate(180%);
+            -webkit-backdrop-filter: blur(18px) saturate(180%);
+        }
+        
+        .detail-badge {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: rgba(201, 149, 75, 0.12);
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+        
+        .detail-card h1 {
+            margin-top: 16px;
+            margin-bottom: 18px;
+            font-family: var(--font-serif);
+            color: var(--dark);
+            font-size: clamp(2.2rem, 4vw, 3.4rem);
+        }
+        
+        .detail-intro {
+            color: #475569;
+            font-size: 1.04rem;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+        
+        .detail-highlights {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 14px;
+        }
+        
+        .detail-highlights li {
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(201, 149, 75, 0.14);
+            border-radius: 12px;
+            padding: 12px 14px;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .detail-highlights li i {
+            color: var(--gold);
+            margin-right: 10px;
+        }
+        
+        .sidebar-box {
+            background: rgba(255, 255, 255, 0.86);
+            border: 1px solid rgba(201, 149, 75, 0.22);
+            border-radius: 16px;
+            padding: 22px 20px;
+            box-shadow: 0 12px 28px rgba(11, 22, 40, 0.05);
+            margin-bottom: 20px;
+            backdrop-filter: blur(16px) saturate(160%);
+            -webkit-backdrop-filter: blur(16px) saturate(160%);
+        }
+        
+        .sidebar-box h4 {
+            font-family: var(--font-serif);
+            color: var(--dark);
+            margin-bottom: 16px;
+        }
+        
+        .sidebar-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 10px;
+        }
+        
+        .sidebar-box li {
+            color: #3a4a5d;
+            font-weight: 500;
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(201, 149, 75, 0.1);
+            padding-bottom: 8px;
+        }
+        
+        .sidebar-box li:last-child {
+            border-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .detail-cta {
+            margin-top: 22px;
+        }
+        
+        @media (max-width: 767.98px) {
+            .service-detail-shell {
+                padding-top: 40px;
+            }
+            .detail-card {
+                padding: 20px 16px;
+            }
+            .detail-card h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
+        <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
+            <a href="index.html" class="navbar-brand ms-4 ms-lg-0 py-2">
+                <img src="img/logo.png" alt="DEDHIA CAPITAL" class="logo">
+            </a>
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto p-4 p-lg-0">
+                    <a href="index.html" class="nav-item nav-link">Home</a>
+                    <a href="about.html" class="nav-item nav-link">About</a>
+                    <a href="calculators.html" class="nav-item nav-link">Calculators</a>
+                    <a href="service.html" class="nav-item nav-link active">Services</a>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                </div>
+                <div class="d-none d-lg-flex ms-2">
+                    <a class="btn btn-primary py-2 px-4" href="contact.html">Book Advisory</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="page-header-banner-section mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container-fluid p-0 position-relative page-banner-box">
+            <img src="img/banner-service.png" alt="Our Services" class="page-banner-hero-img">
+            <div class="page-banner-content-overlay">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-7 banner-text-col">
+                            <h1 class="display-4 font-serif text-dark mb-2">Service Details</h1>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="service.html">Services</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Details</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="service-detail-shell">
+        <div class="container">
+            <div class="row g-4 align-items-start">
+                <div class="col-lg-8">
+                    <div class="detail-card wow fadeInUp" data-wow-delay="0.1s">
+                        <span class="detail-badge" id="detail-badge">Service</span>
+                        <h1 id="detail-title">Service</h1>
+                        <p class="detail-intro" id="detail-intro"></p>
+                        <ul class="detail-highlights" id="detail-highlights"></ul>
+                        <div class="detail-cta">
+                            <a class="btn btn-primary px-4 py-2 rounded-pill" href="contact.html">Talk to an Advisor</a>
+                            <a class="btn btn-outline-primary px-4 py-2 rounded-pill ms-2" href="service.html">Back to Services</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="sidebar-box wow fadeInUp" data-wow-delay="0.2s">
+                        <h4>Why investors choose DEDHIA</h4>
+                        <ul>
+                            <li>Goal-based allocation with disciplined risk management.</li>
+                            <li>Transparent recommendations backed by research and due diligence.</li>
+                            <li>Tax-aware, liquidity-conscious positioning for each stage of life.</li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-box wow fadeInUp" data-wow-delay="0.3s">
+                        <h4>Need help choosing?</h4>
+                        <ul>
+                            <li>Match your requirement to the right allocation mix.</li>
+                            <li>Review your portfolio, liquidity needs, and tax exposure.</li>
+                            <li>Build a structured plan for your next investment decision.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="container-fluid bg-dark text-light footer mt-5 py-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-logo-wrap">
+                        <img src="img/logo.png" alt="DEDHIA CAPITAL">
+                    </div>
+                    <p class="text-light-50 mb-3">Dedhia capital Registered Mutual Fund Distributor. Delivering holistic wealth management, disciplined portfolio advisory, and bespoke financial solutions.</p>
+                </div>
+                <div class="col-lg-4 col-md-6 footer-services-col d-none d-md-block">
+                    <h4 class="text-white mb-4">Our Services</h4>
+                    <div class="row">
+                        <div class="col-6">
+                            <a class="btn btn-link" href="service.html">Mutual Funds</a>
+                            <a class="btn btn-link" href="service.html">PMS & AIF</a>
+                            <a class="btn btn-link" href="service.html">Insurance</a>
+                            <a class="btn btn-link" href="service.html">Global Investing</a>
+                        </div>
+                        <div class="col-6">
+                            <a class="btn btn-link" href="service.html">Corporate FDs</a>
+                            <a class="btn btn-link" href="service.html">Bonds & NCDs</a>
+                            <a class="btn btn-link" href="service.html">NPS</a>
+                            <a class="btn btn-link" href="service.html">Family Wealth</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 footer-links-col d-none d-md-block">
+                    <h4 class="text-white mb-4">Quick Links</h4>
+                    <a class="btn btn-link" href="index.html">Home</a>
+                    <a class="btn btn-link" href="about.html">About Us</a>
+                    <a class="btn btn-link" href="service.html">Our Services</a>
+                    <a class="btn btn-link" href="contact.html">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid copyright py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    &copy; <a class="border-bottom" href="#">DEDHIA CAPITAL</a>, All Rights Reserved.
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    Mutual fund investments are subject to market risks. Read all scheme related documents carefully.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        const serviceDetails = {
+            "mutual-funds": {
+                badge: "Mutual Funds",
+                title: "Mutual Funds",
+                intro: "Mutual funds help investors align with long-term wealth creation through systematic investing, diversification, and professional portfolio management. At DEDHIA CAPITAL, we build goal-based mutual fund portfolios covering core equity, debt, hybrid, tax-saving, and SIP-led investment strategies.",
+                highlights: [
+                    "Goal-based SIP and lumpsum strategy across equity, debt, and hybrid funds.",
+                    "Tax-efficient allocation, including ELSS and debt-oriented structures.",
+                    "Regular monitoring, rebalancing, and benchmark-based review for discipline."
+                ]
+            },
+            "ncd": {
+                badge: "Bonds / NCD",
+                title: "Bonds / NCD",
+                intro: "Bonds and non-convertible debentures offer stable income, predictable cash flow, and lower volatility versus direct equity exposure. These instruments are particularly useful for investors who want fixed income with defined maturity and yield characteristics.",
+                highlights: [
+                    "Sovereign Gold Bonds, tax-free bonds, and secured listed corporate NCDs.",
+                    "Defined coupon structure with semi-annual or annual payouts.",
+                    "Useful for capital preservation, income generation, and portfolio diversification."
+                ]
+            },
+            "corporate-fd": {
+                badge: "Fixed Income",
+                title: "Corporate & Bank FD",
+                intro: "Corporate and bank fixed deposits are ideal for investors seeking consistent returns with a strong emphasis on safety and predictability. We help you compare tenor, liquidity, payout structure, and issuer strength to match your cash flow needs.",
+                highlights: [
+                    "Access to higher-yielding, well-rated corporate FD options.",
+                    "Comparison of tenure, interest frequency, and reinvestment options.",
+                    "Suitable for short- to medium-term goals and emergency reserve planning."
+                ]
+            },
+            "pms": {
+                badge: "Customized Portfolio",
+                title: "Portfolio Management Services (PMS)",
+                intro: "PMS offers directly managed, concentrated portfolios designed for clients seeking active wealth creation, bespoke asset allocation, and deeper control over equity ownership. It is often used by investors with a higher risk appetite and larger investable capital.",
+                highlights: [
+                    "High-conviction, focused portfolio construction aligned to risk profile.",
+                    "Direct ownership of securities with periodic performance reporting.",
+                    "Tailored mandates for wealth preservation and compounding."
+                ]
+            },
+            "sif": {
+                badge: "Thematic Strategy",
+                title: "Specialized Investment Fund (SIF)",
+                intro: "SIFs are designed for niche, research-led themes such as digital disruption, clean energy, infrastructure, and special-situation opportunities. They offer investors more specialized exposure beyond traditional diversified funds.",
+                highlights: [
+                    "Sector-based and thematic exposure with focused research insight.",
+                    "Suitable for investors looking beyond broad-market diversification.",
+                    "Built around deep alpha opportunities and disciplined risk controls."
+                ]
+            },
+            "aif": {
+                badge: "Private Markets",
+                title: "Alternative Investments (AIF)",
+                intro: "Alternative investment funds provide access to private equity, venture capital, structured debt, and market-neutral opportunities. These solutions are typically used to diversify portfolios beyond listed equities and traditional fixed income.",
+                highlights: [
+                    "Access to category I, II, and III AIF exposure opportunities.",
+                    "Broad spectrum of private market and structured strategies.",
+                    "Useful for sophisticated investors seeking diversification and long-term compounding."
+                ]
+            },
+            "global-investing": {
+                badge: "International",
+                title: "Global Investing",
+                intro: "Global investing helps reduce domestic concentration risk and access innovation-led growth opportunities beyond India. We help you evaluate overseas equities, ETFs, and structured capital flows through compliant, tax-aware routes.",
+                highlights: [
+                    "International equity and ETF exposure through regulated frameworks.",
+                    "Currency and diversification planning for global portfolio allocation.",
+                    "Support for LRS-based, cross-border, long-term wealth diversification."
+                ]
+            },
+            "gift-city": {
+                badge: "IFSC",
+                title: "GIFT City Funds",
+                intro: "GIFT City offers a unique investment corridor for global and inbound opportunities under a regulatory framework designed for international financial activity. It enables cross-border structuring, offshore funds, and global allocation in a tax-efficient environment.",
+                highlights: [
+                    "Access to offshore funds and global investment vehicles through IFSC routes.",
+                    "Support for compliant global allocation and tax-aware structuring.",
+                    "Useful for NRI and international investment planning."
+                ]
+            },
+            "pre-ipo": {
+                badge: "Private Growth",
+                title: "Unlisted Pre-IPO Opportunities",
+                intro: "Pre-IPO opportunities allow investors to gain early access to businesses before public listing, often with significant upside in a high-growth phase. These investments demand careful workflow, due diligence, and risk sizing.",
+                highlights: [
+                    "Early-stage access to high-growth private enterprises.",
+                    "Rigorous due diligence and valuation review before investment.",
+                    "Designed for investors seeking asymmetric long-term upside."
+                ]
+            },
+            "portfolio-review": {
+                badge: "Advisory",
+                title: "Portfolio Review & Diagnostics",
+                intro: "A portfolio review is a structured health check of your existing investments, risk concentration, and asset allocation. It identifies overlaps, underperformers, and the right rebalancing strategy to align your investments with your goals.",
+                highlights: [
+                    "Comprehensive review of equity, mutual funds, debt, and insurance holdings.",
+                    "Assessment of overlaps, underperformance, and concentration risk.",
+                    "Objective portfolio resets aligned to your risk profile and milestones."
+                ]
+            },
+            "family-wealth": {
+                badge: "Family Office",
+                title: "Family Wealth Management",
+                intro: "Family wealth management blends investment strategy, liquidity planning, risk governance, and inter-generational financial planning. It is structured to preserve wealth while supporting continuity across generations.",
+                highlights: [
+                    "Consolidated wealth tracking and net-worth mapping.",
+                    "Inter-generational planning and tax optimization.",
+                    "Governance framework for liquidity, legacy, and family goals."
+                ]
+            },
+            "nps": {
+                badge: "Retirement",
+                title: "NPS (National Pension System)",
+                intro: "The National Pension System is a low-cost, long-term retirement instrument designed to support disciplined compounding and tax-saving benefits. It offers a strong balance of retirement planning and long-term wealth building.",
+                highlights: [
+                    "Extra tax deduction under Section 80CCD(1B) for eligible taxpayers.",
+                    "Flexible active and auto allocation choices.",
+                    "Low-cost compounding for long-term retirement security."
+                ]
+            },
+            "insurance": {
+                badge: "Protection",
+                title: "Life Insurance",
+                intro: "Life insurance protects your family against financial loss due to income interruption, critical illness, or unforeseen life events. We help you structure protection that complements your wealth plan without sacrificing long-term goal funding.",
+                highlights: [
+                    "Pure term, savings-linked, and critical illness protection solutions.",
+                    "Coverage aligned to income replacement and obligations.",
+                    "Support for financial protection and life-stage planning."
+                ]
+            },
+            "general-insurance": {
+                badge: "Protection",
+                title: "General Insurance",
+                intro: "General insurance covers your health, home, auto, and business assets against uncertainty. It is a critical layer of protection that reduces the risk of unplanned financial strain.",
+                highlights: [
+                    "Health and super top-up plans for medical protection.",
+                    "Motor, home, and asset protection options.",
+                    "Risk cover suited to lifestyle, liabilities, and family structure."
+                ]
+            },
+            "succession": {
+                badge: "Legacy",
+                title: "Business Succession Planning",
+                intro: "Succession planning ensures continuity, governance, and value preservation when a business transitions across generations or ownership structures. A well-planned succession roadmap protects both finances and family relationships.",
+                highlights: [
+                    "Shareholder, family, and buy-sell agreement design.",
+                    "Contingency planning for business continuity and founder transition.",
+                    "Tax-aware family wealth and operating entity structures."
+                ]
+            },
+            "estate": {
+                badge: "Legacy",
+                title: "Family Trust & Estate Roadmap",
+                intro: "Estate planning is essential for preserving family wealth, minimizing friction, and ensuring your assets reach the intended beneficiaries efficiently. We design a structured estate strategy aligned to law, taxes, and family objectives.",
+                highlights: [
+                    "Family trust structures for governance and smooth asset transfer.",
+                    "Will, succession, and governance alignment for family assets.",
+                    "Protection against disputes and tax inefficiencies."
+                ]
+            }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const serviceKey = params.get('service') || 'mutual-funds';
+        const service = serviceDetails[serviceKey] || serviceDetails['mutual-funds'];
+
+        document.getElementById('detail-badge').textContent = service.badge;
+        document.getElementById('detail-title').textContent = service.title;
+        document.getElementById('detail-intro').textContent = service.intro;
+
+        const list = document.getElementById('detail-highlights');
+        service.highlights.forEach((item) => {
+            const li = document.createElement('li');
+            li.innerHTML = '<i class="fa fa-check-circle"></i>' + item;
+            list.appendChild(li);
+        });
+    </script>
+</body>
+
+</html>
