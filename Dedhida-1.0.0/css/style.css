@@ -272,7 +272,7 @@ h5,
 
 .navbar-brand img.logo {
     display: block;
-    max-height: 58px;
+    max-height: 68px;
     width: auto;
     object-fit: contain;
     transition: transform 0.3s ease;
@@ -731,53 +731,92 @@ h5,
 }
 
 @media (max-width: 991.98px) {
+
+    .page-header-banner-section,
+    .page-banner-box,
+    .page-banner-container {
+        margin-top: 56px !important;
+        margin-bottom: 0 !important;
+        padding-top: 0 !important;
+    }
+
     .page-banner-hero-bg {
-        height: clamp(260px, 42vw, 360px);
-        min-height: 250px;
-    }
-
-    .page-banner-hero-bg::before {
-        background: linear-gradient(to right, rgba(223, 207, 189, 0.96) 0%, rgba(223, 207, 189, 0.88) 40%, rgba(223, 207, 189, 0.35) 70%, rgba(223, 207, 189, 0) 90%);
-    }
-
-    .page-banner-content-overlay {
-        padding-top: 56px;
-    }
-
-    .page-banner-content-overlay .banner-text-col,
-    .page-banner-content-overlay .row>div {
-        max-width: 75%;
-    }
-
-    .page-banner-content-overlay h1 {
-        font-size: clamp(1.6rem, 5.5vw, 2.6rem) !important;
-        line-height: 1.05 !important;
-    }
-}
-
-@media (max-width: 767.98px) {
-    .page-banner-hero-bg {
-        height: clamp(240px, 50vw, 300px);
+        height: clamp(250px, 46vw, 340px);
         min-height: 230px;
     }
 
     .page-banner-hero-bg::before {
-        background: linear-gradient(to right, rgba(223, 207, 189, 0.96) 0%, rgba(223, 207, 189, 0.88) 50%, rgba(223, 207, 189, 0.45) 80%, rgba(223, 207, 189, 0.1) 100%);
+        background: linear-gradient(to right, rgba(223, 207, 189, 0.85) 0%, rgba(223, 207, 189, 0.50) 45%, rgba(223, 207, 189, 0.15) 80%, rgba(223, 207, 189, 0.02) 100%);
+    }
+
+    .page-about .page-banner-hero-img,
+    .page-services .page-banner-hero-img,
+    .page-calculators .page-banner-hero-img,
+    .page-contact .page-banner-hero-img,
+    .page-banner-hero-img {
+        object-position: right center !important;
+        object-fit: cover !important;
     }
 
     .page-banner-content-overlay {
-        padding-top: 50px;
+        padding-top: 0 !important;
+        display: flex;
+        align-items: center;
     }
 
     .page-banner-content-overlay .banner-text-col,
     .page-banner-content-overlay .row>div {
-        max-width: 88%;
+        max-width: 78%;
     }
 
     .page-banner-content-overlay h1 {
-        font-size: clamp(1.4rem, 6.2vw, 2rem) !important;
-        margin-bottom: 0.15rem !important;
-        line-height: 1.08 !important;
+        font-size: clamp(1.5rem, 5.5vw, 2.4rem) !important;
+        line-height: 1.15 !important;
+        margin-bottom: 0.25rem !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+
+    .page-header-banner-section,
+    .page-banner-box,
+    .page-banner-container {
+        margin-top: 56px !important;
+        margin-bottom: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .page-banner-hero-bg {
+        height: clamp(230px, 52vw, 300px);
+        min-height: 210px;
+    }
+
+    .page-banner-hero-bg::before {
+        background: linear-gradient(to right, rgba(223, 207, 189, 0.85) 0%, rgba(223, 207, 189, 0.45) 50%, rgba(223, 207, 189, 0.12) 85%, rgba(223, 207, 189, 0.02) 100%);
+    }
+
+    .page-about .page-banner-hero-img,
+    .page-services .page-banner-hero-img,
+    .page-calculators .page-banner-hero-img,
+    .page-contact .page-banner-hero-img,
+    .page-banner-hero-img {
+        object-position: right center !important;
+        object-fit: cover !important;
+    }
+
+    .page-banner-content-overlay {
+        padding-top: 0 !important;
+    }
+
+    .page-banner-content-overlay .banner-text-col,
+    .page-banner-content-overlay .row>div {
+        max-width: 82%;
+    }
+
+    .page-banner-content-overlay h1 {
+        font-size: clamp(1.35rem, 6vw, 1.95rem) !important;
+        margin-bottom: 0.2rem !important;
+        line-height: 1.15 !important;
     }
 
     .page-banner-content-overlay .breadcrumb-item,
@@ -787,28 +826,46 @@ h5,
 }
 
 @media (max-width: 480px) {
+
+    .page-header-banner-section,
+    .page-banner-box,
+    .page-banner-container {
+        margin-top: 56px !important;
+        margin-bottom: 0 !important;
+        padding-top: 0 !important;
+    }
+
     .page-banner-hero-bg {
         height: clamp(210px, 56vw, 260px);
         min-height: 200px;
     }
 
     .page-banner-hero-bg::before {
-        background: linear-gradient(to right, rgba(223, 207, 189, 0.96) 0%, rgba(223, 207, 189, 0.9) 60%, rgba(223, 207, 189, 0.5) 85%, rgba(223, 207, 189, 0.15) 100%);
+        background: linear-gradient(to right, rgba(223, 207, 189, 0.82) 0%, rgba(223, 207, 189, 0.40) 55%, rgba(223, 207, 189, 0.08) 88%, rgba(223, 207, 189, 0.01) 100%);
+    }
+
+    .page-about .page-banner-hero-img,
+    .page-services .page-banner-hero-img,
+    .page-calculators .page-banner-hero-img,
+    .page-contact .page-banner-hero-img,
+    .page-banner-hero-img {
+        object-position: right center !important;
+        object-fit: cover !important;
     }
 
     .page-banner-content-overlay {
-        padding-top: 44px;
+        padding-top: 0 !important;
     }
 
     .page-banner-content-overlay .banner-text-col,
     .page-banner-content-overlay .row>div {
-        max-width: 95%;
+        max-width: 85%;
     }
 
     .page-banner-content-overlay h1 {
-        font-size: clamp(1.25rem, 6.8vw, 1.65rem) !important;
-        margin-bottom: 0.1rem !important;
-        line-height: 1.1 !important;
+        font-size: clamp(1.25rem, 6.5vw, 1.65rem) !important;
+        margin-bottom: 0.15rem !important;
+        line-height: 1.15 !important;
     }
 
     .page-banner-content-overlay .breadcrumb-item,
@@ -819,51 +876,18 @@ h5,
 
 @media (max-width: 991.98px) {
     .page-header {
-        margin-top: 65px;
-        padding-top: 3.5rem !important;
-        padding-bottom: 2.5rem !important;
-    }
-
-    .page-banner-container {
-        margin-top: 65px;
+        margin-top: 56px !important;
+        padding-top: 3rem !important;
+        padding-bottom: 2.2rem !important;
     }
 
     .page-header-service-custom {
-        margin-top: 65px;
+        margin-top: 56px !important;
         min-height: auto;
     }
 
     .service-banner-img-wrap {
         height: 200px;
-    }
-}
-
-
-/* Make sure top-level banner images and hero areas start below the fixed navbar
-   so they are not visually cut off when the navbar is fixed at top. */
-
-#header-carousel,
-.hero-dark-banner,
-.page-header,
-.page-header-banner-section,
-.page-banner-box,
-.page-banner-container {
-    padding-top: 0;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-}
-
-@media (max-width: 991.98px) {
-
-    #header-carousel,
-    .hero-dark-banner,
-    .page-header,
-    .page-header-banner-section,
-    .page-banner-box,
-    .page-banner-container {
-        margin-top: 0 !important;
-        margin-bottom: 0 !important;
-        padding-top: 0;
     }
 }
 
@@ -883,9 +907,9 @@ h5,
     .page-contact .page-header-banner-section,
     .page-contact .page-banner-box,
     .page-contact .page-banner-container {
-        margin-top: 0 !important;
+        margin-top: 56px !important;
         margin-bottom: 0 !important;
-        padding-top: 0;
+        padding-top: 0 !important;
     }
 }
 
@@ -2241,8 +2265,8 @@ img {
     }
 
     .navbar-brand img.logo {
-        max-height: 40px;
-        max-width: 200px;
+        max-height: 52px;
+        max-width: 250px;
     }
 
     .navbar-toggler {
@@ -2417,8 +2441,8 @@ img {
 
 @media (max-width: 576px) {
     .navbar-brand img.logo {
-        max-height: 36px;
-        max-width: 175px;
+        max-height: 48px;
+        max-width: 220px;
     }
 
     .page-header {
@@ -3866,6 +3890,186 @@ img {
 }
 
 /* =======================================================
+   FINANCIAL CALCULATORS DIRECTORY HUB GRID (UNGROUPED)
+   ======================================================= */
+.calc-directory-section {
+    background: #FFFFFF;
+    position: relative;
+    border-bottom: 1px solid rgba(11, 22, 40, 0.06);
+    padding: 40px 0 30px 0;
+}
+
+.calc-grid-card {
+    background: #FFFFFF;
+    border: 1.5px solid rgba(11, 22, 40, 0.08);
+    border-radius: 20px;
+    padding: 2rem 1.25rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    height: 100%;
+    min-height: 235px;
+    box-shadow: 0 4px 18px rgba(11, 22, 40, 0.03);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+}
+
+.calc-grid-card:hover {
+    transform: translateY(-6px);
+    border-color: #C9954B;
+    box-shadow: 0 16px 36px rgba(11, 22, 40, 0.09);
+}
+
+.calc-grid-card.active {
+    border-color: #C9954B;
+    background: #FFFDF9;
+    box-shadow: 0 8px 26px rgba(201, 149, 75, 0.16);
+}
+
+.calc-grid-card-icon-box {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: rgba(201, 149, 75, 0.09);
+    border: 1px solid rgba(201, 149, 75, 0.2);
+    color: #C9954B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    margin-bottom: 1.15rem;
+    transition: all 0.3s ease;
+}
+
+.calc-grid-card:hover .calc-grid-card-icon-box,
+.calc-grid-card.active .calc-grid-card-icon-box {
+    background: linear-gradient(135deg, #0B1628 0%, #152542 100%);
+    border-color: #0B1628;
+    color: #C9954B;
+    transform: scale(1.06);
+    box-shadow: 0 6px 16px rgba(11, 22, 40, 0.15);
+}
+
+.calc-grid-card-title {
+    font-family: var(--font-sans);
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: #0B1628;
+    margin-bottom: 1.1rem;
+    line-height: 1.35;
+    transition: color 0.2s ease;
+}
+
+.calc-grid-card:hover .calc-grid-card-title,
+.calc-grid-card.active .calc-grid-card-title {
+    color: #0B1628;
+}
+
+.calc-grid-card-pill {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+    color: #5A6B82;
+    background: #FAFBFD;
+    border: 1px solid rgba(11, 22, 40, 0.1);
+    border-radius: 30px;
+    padding: 4px 14px;
+    transition: all 0.25s ease;
+}
+
+.calc-grid-card:hover .calc-grid-card-pill {
+    background: #0B1628;
+    color: #FFFFFF;
+    border-color: #0B1628;
+}
+
+.calc-grid-card.active .calc-grid-card-pill {
+    background: #C9954B;
+    color: #FFFFFF;
+    border-color: #C9954B;
+}
+
+.calc-back-grid-btn {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #0B1628;
+    background: rgba(11, 22, 40, 0.05);
+    border: 1px solid rgba(11, 22, 40, 0.12);
+    border-radius: 20px;
+    padding: 3px 10px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.calc-back-grid-btn:hover {
+    background: #0B1628;
+    color: #FFFFFF;
+    border-color: #0B1628;
+}
+
+@media (max-width: 767.98px) {
+    .calc-grid-card {
+        padding: 1.25rem 0.65rem 1rem;
+        min-height: 190px;
+        border-radius: 16px;
+    }
+
+    .calc-grid-card-icon-box {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+        margin-bottom: 0.7rem;
+    }
+
+    .calc-grid-card-title {
+        font-size: 0.88rem;
+        margin-bottom: 0.6rem;
+        line-height: 1.25;
+    }
+
+    .calc-grid-card-pill {
+        font-size: 0.58rem;
+        padding: 3px 8px;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .calc-grid-card {
+        padding: 1rem 0.4rem 0.8rem;
+        min-height: 175px;
+        border-radius: 14px;
+    }
+
+    .calc-grid-card-icon-box {
+        width: 44px;
+        height: 44px;
+        font-size: 1.15rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .calc-grid-card-title {
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
+    }
+
+    .calc-grid-card-pill {
+        font-size: 0.52rem;
+        padding: 2px 6px;
+        letter-spacing: 0.3px;
+    }
+}
+
+/* =======================================================
    FINANCIAL CALCULATORS FLAGSHIP SECTION - BALANCED PREMIUM
    ======================================================= */
 
@@ -4191,6 +4395,60 @@ img {
     border-color: #0B1628;
     color: #FFFFFF;
     box-shadow: 0 2px 6px rgba(11, 22, 40, 0.15);
+}
+
+/* Home Screen Goal Text Box */
+.calc-home-text-box {
+    width: 100%;
+    max-width: 520px;
+}
+
+.calc-home-text-box h3 {
+    font-family: var(--font-serif);
+    color: #0B1628;
+    font-size: clamp(1.6rem, 3.2vw, 2.3rem);
+    font-weight: 700;
+}
+
+.calc-home-text-box p {
+    color: #5A6B82;
+    font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+    line-height: 1.7;
+}
+
+/* Home Screen Visual Image with Girl */
+.calc-home-visual-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calc-home-girl-card {
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 18px;
+    background: transparent;
+}
+
+.calc-home-girl-img {
+    width: 100%;
+    height: auto;
+    max-height: 480px;
+    object-fit: cover;
+    border-radius: 18px;
+    border: 1px solid rgba(11, 22, 40, 0.08);
+    box-shadow: 0 10px 30px rgba(11, 22, 40, 0.06);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.calc-home-girl-card:hover .calc-home-girl-img {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(11, 22, 40, 0.1);
 }
 
 /* Results Column */

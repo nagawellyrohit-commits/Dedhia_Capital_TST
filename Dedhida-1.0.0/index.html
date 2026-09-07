@@ -53,7 +53,7 @@
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                     <a class="nav-item nav-link active" href="index.html">Home</a>
                     <a class="nav-item nav-link" href="about.html">About</a>
-                    <a class="nav-item nav-link" href="calculators.html">Calculators</a>
+                    <a class="nav-item nav-link" href="calculators.html">Tools</a>
                     <a class="nav-item nav-link" href="#services">Services</a>
                     <a class="nav-item nav-link" href="contact.html">Contact</a>
                 </div>
@@ -419,94 +419,39 @@
                 </p>
             </div>
 
-            <!-- Master Interactive Hero Calculator Stage with Advisor Visual -->
+            <!-- Master Interactive Hero Calculator Stage with Visual -->
             <div class="calc-hero-stage wow fadeInUp" data-wow-delay="0.2s">
                 <div class="calc-master-card shadow-sm" id="calc-master-container">
 
-                    <!-- Calculator Meta Header -->
-                    <div class="calc-card-header">
-                        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-1">
-                            <div class="calc-tool-badge" id="calc-tool-badge">01 / GOAL SIP CALCULATOR</div>
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="calc-quick-tag"><i class="fa fa-chart-pie me-1 text-gold"></i> Dynamic
-                                    Interactive Engine</div>
-                                <div class="calc-breadcrumb-nav d-none d-md-inline">Plan &gt; Invest &gt;
-                                    <span>Grow</span>
-                                </div>
-                            </div>
-                        </div>
-                        <h3 class="calc-tool-headline" id="calc-tool-headline">Turn a Goal Into a Number.</h3>
-                        <p class="calc-tool-subtext" id="calc-tool-subtext">See what it takes to fund the life you have
-                            planned for.</p>
-                    </div>
+                    <!-- Two-Column Interactive Layout (Home Screen: Text on Left, Visual on Right) -->
+                    <div class="row g-4 align-items-center">
 
-                    <!-- Two-Column Interactive Layout -->
-                    <div class="row g-3 align-items-stretch">
-
-                        <!-- Left Column: Inputs -->
-                        <div class="col-lg-6 calc-col-inputs">
-                            <div class="calc-inputs-wrapper" id="calc-dynamic-inputs">
-                                <!-- Dynamic Inputs rendered by JS Engine -->
-                            </div>
-                        </div>
-
-                        <!-- Right Column: Results & Visualization -->
-                        <div class="col-lg-6 calc-col-results">
-                            <div class="calc-results-card">
-
-                                <!-- Primary Result Highlight (Navy Box) -->
-                                <div class="calc-primary-result-box">
-                                    <div class="calc-primary-box-left">
-                                        <span class="calc-result-label" id="calc-primary-label">REQUIRED MONTHLY
-                                            SIP</span>
-                                        <div class="calc-result-value" id="calc-primary-val">₹ 21,487 <span
-                                                class="calc-result-unit">/ month</span></div>
-                                        <div class="calc-result-tagline" id="calc-primary-tagline">Start investing today
-                                            for a brighter tomorrow.</div>
-                                    </div>
-                                    <div class="calc-primary-box-right d-none d-sm-flex">
-                                        <i class="fa fa-chart-line calc-badge-icon"></i>
-                                        <div class="calc-badge-text">Stay Invested<br>Stay Ahead</div>
-                                    </div>
-                                </div>
-
-                                <!-- Secondary Metrics Grid (4 metrics) -->
-                                <div class="row g-2 calc-secondary-grid" id="calc-secondary-metrics">
-                                    <!-- Dynamic metrics rendered by JS Engine -->
-                                </div>
-
-                                <!-- Dynamic Data Visualization Chart -->
-                                <div class="calc-chart-container mt-1">
-                                    <div class="d-flex align-items-center justify-content-between mb-1">
-                                        <span class="calc-chart-title" id="calc-chart-title">Growth Visualisation</span>
-                                        <span class="calc-chart-legend" id="calc-chart-legend">
-                                            <span class="legend-dot-orange"></span> Your Investment
-                                            <span class="legend-dot-blue"></span> Total Value (with growth)
-                                        </span>
-                                    </div>
-                                    <div class="calc-canvas-wrapper">
-                                        <canvas id="calc-growth-canvas" height="85"></canvas>
-                                        <div class="calc-chart-badge-overlay" id="calc-chart-overlay">
-                                            <div class="calc-chart-badge-val" id="calc-chart-overlay-val">₹ 1.19 Cr
-                                            </div>
-                                            <div class="calc-chart-badge-lbl" id="calc-chart-overlay-lbl">Goal Value
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Primary CTA & Disclaimer -->
-                                <div class="calc-footer-cta mt-2 text-center">
-                                    <a href="contact.html"
-                                        class="btn btn-primary w-100 py-2 rounded-pill fw-bold calc-cta-btn">
-                                        See My Financial Roadmap <i class="fa fa-arrow-right ms-2"></i>
+                        <!-- Left Column: Goal Message & CTA Button (Home Screen Only) -->
+                        <div class="col-lg-6 calc-col-inputs p-4 p-lg-5">
+                            <div class="calc-home-text-box">
+                                <span class="calc-tool-badge mb-3 d-inline-block">GOAL-BASED PLANNING</span>
+                                <h3 class="display-6 font-serif fw-bold text-dark mb-3" style="line-height: 1.25;">
+                                    Have a financial goal in mind?
+                                </h3>
+                                <p class="text-muted fs-6 mb-4" style="line-height: 1.7;">
+                                    Whether you're planning for a new home, your child's future, retirement or simply
+                                    building wealth, understanding the numbers can help you plan better. Click below to
+                                    start planning.
+                                </p>
+                                <div class="calc-footer-cta text-start">
+                                    <a href="calculators.html"
+                                        class="btn btn-primary px-4 py-3 rounded-pill fw-bold calc-cta-btn shadow-sm">
+                                        CHOOSE A GOAL &amp; START CALCULATING <i class="fa fa-arrow-right ms-2"></i>
                                     </a>
-                                    <p class="calc-disclaimer mb-0 mt-1">
-                                        <i class="fa fa-info-circle me-1"></i> Illustrative calculation. Actual returns
-                                        may vary based on market conditions.
-                                    </p>
                                 </div>
+                            </div>
+                        </div>
 
+                        <!-- Right Column: Visual Image with Girl (Home Screen Only) -->
+                        <div class="col-lg-6 calc-home-visual-col text-center p-3 p-lg-4">
+                            <div class="calc-home-girl-card">
+                                <img src="img/home-goal-girl.jpg" alt="Big goals brighter tomorrows"
+                                    class="img-fluid rounded-4 shadow-sm calc-home-girl-img">
                             </div>
                         </div>
 
@@ -514,33 +459,6 @@
 
                 </div>
 
-            </div>
-
-            <!-- Horizontal Moving Calculator Rail (Explore Financial Tools) -->
-            <div class="calc-rail-section mt-3 pt-1 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="d-flex align-items-center justify-content-between mb-2 px-1">
-                    <h4 class="calc-rail-heading mb-0">
-                        <i class="fa fa-compass text-gold me-2"></i>EXPLORE ALL 11 FINANCIAL TOOLS
-                    </h4>
-                    <div class="d-flex align-items-center">
-                        <span class="calc-rail-tagline d-none d-md-inline me-3">
-                            Different goals. A brighter you. <span class="calc-rail-tagline-dot"></span>
-                        </span>
-                        <div class="d-flex gap-2">
-                            <button type="button" class="calc-rail-nav-btn" id="calc-rail-prev"
-                                aria-label="Previous Tool"><i class="fa fa-chevron-left"></i></button>
-                            <button type="button" class="calc-rail-nav-btn" id="calc-rail-next"
-                                aria-label="Next Tool"><i class="fa fa-chevron-right"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Continuous Rail Marquee -->
-                <div class="calc-rail-marquee" id="calc-rail-marquee">
-                    <div class="calc-rail-track" id="calc-rail-track">
-                        <!-- 11 Calculator Interactive Cards rendered dynamically & duplicated for infinite loop -->
-                    </div>
-                </div>
             </div>
 
         </div>

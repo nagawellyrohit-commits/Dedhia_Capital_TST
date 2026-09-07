@@ -59,7 +59,7 @@
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                     <a href="index.html" class="nav-item nav-link">Home</a>
                     <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="calculators.html" class="nav-item nav-link active">Calculators</a>
+                    <a href="calculators.html" class="nav-item nav-link active">Tools</a>
                     <a href="service.html" class="nav-item nav-link">Services</a>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
@@ -75,7 +75,7 @@
     <div class="page-header-banner-section mb-0 wow fadeIn" data-wow-delay="0.1s">
         <div class="container-fluid p-0 position-relative page-banner-box">
             <div class="page-banner-hero-bg page-calculators">
-                <img src="img/banner-calculator.png" alt="Financial Calculators" class="page-banner-hero-img">
+                <img src="img/Calculator-bg.png" alt="Financial Calculators" class="page-banner-hero-img">
                 <div class="page-banner-content-overlay">
                     <div class="container">
                         <div class="row">
@@ -96,24 +96,145 @@
     </div>
     <!-- Page Header End -->
 
-    <!-- Calculator Category Quick Select Bar Start -->
-    <div class="container pt-4 pb-2">
-        <div class="d-flex flex-wrap align-items-center justify-content-center gap-2 mb-3 wow fadeInUp"
-            data-wow-delay="0.1s" id="calc-page-filter-bar">
-            <button type="button" class="calc-category-btn active" data-calc-id="goal-sip">01 Goal SIP</button>
-            <button type="button" class="calc-category-btn" data-calc-id="retirement">02 Retirement</button>
-            <button type="button" class="calc-category-btn" data-calc-id="education">03 Education</button>
-            <button type="button" class="calc-category-btn" data-calc-id="marriage">04 Marriage</button>
-            <button type="button" class="calc-category-btn" data-calc-id="holiday">05 Holiday</button>
-            <button type="button" class="calc-category-btn" data-calc-id="sip-swp">06 SIP + SWP</button>
-            <button type="button" class="calc-category-btn" data-calc-id="step-up-sip">07 Step-Up SIP</button>
-            <button type="button" class="calc-category-btn" data-calc-id="first-1-crore">08 ₹1 Crore</button>
-            <button type="button" class="calc-category-btn" data-calc-id="loan-debt">09 Loan EMI</button>
-            <button type="button" class="calc-category-btn" data-calc-id="earn-back-emi">10 Earn Back EMI</button>
-            <button type="button" class="calc-category-btn" data-calc-id="loan-repay">11 Loan Repayment</button>
+    <!-- Calculator Directory Hub Grid Start -->
+    <section class="calc-directory-section py-5 bg-white" id="calc-directory-section">
+        <div class="container">
+            <div class="text-center mx-auto mb-4 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 780px;">
+                <span class="calc-section-badge">SELECT A CALCULATOR</span>
+                <h2 class="calc-section-title">Explore All Financial Tools</h2>
+                <p class="calc-section-subtitle">
+                    Click any tool below to launch the interactive calculator and customize your financial projections.
+                </p>
+            </div>
+
+            <!-- Unified Grid of All 11 Financial Calculators (Ungrouped) -->
+            <div class="row g-2 g-sm-3 g-lg-4 justify-content-center wow fadeInUp" data-wow-delay="0.2s" id="calc-directory-grid">
+                
+                <!-- 01 Goal SIP -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="calc-grid-card active" data-calc-id="goal-sip" data-calc-idx="0">
+                        <div class="calc-grid-card-icon-box">
+                            <i class="fa fa-bullseye"></i>
+                        </div>
+                        <h4 class="calc-grid-card-title">Goal SIP Calculator</h4>
+                        <span class="calc-grid-card-pill">PLAN YOUR GOALS</span>
+                    </div>
+                </div>
+
+                <!-- 02 Retirement -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="calc-grid-card" data-calc-id="retirement" data-calc-idx="1">
+                        <div class="calc-grid-card-icon-box">
+                            <i class="fa fa-chair"></i>
+                        </div>
+                        <h4 class="calc-grid-card-title">Retirement Calculator</h4>
+                        <span class="calc-grid-card-pill">PLAN YOUR GOALS</span>
+                    </div>
+                </div>
+
+                <!-- 03 FIRE Calculator -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="calc-grid-card" data-calc-id="fire" data-calc-idx="2">
+                        <div class="calc-grid-card-icon-box">
+                            <i class="fa fa-fire"></i>
+                        </div>
+                        <h4 class="calc-grid-card-title">FIRE Calculator</h4>
+                        <span class="calc-grid-card-pill">PLAN YOUR GOALS</span>
+                    </div>
+                </div>
+
+                <!-- 04 Child Education -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="calc-grid-card" data-calc-id="child-edu" data-calc-idx="3">
+                        <div class="calc-grid-card-icon-box">
+                            <i class="fa fa-graduation-cap"></i>
+                        </div>
+                        <h4 class="calc-grid-card-title">Child Education Planner</h4>
+                        <span class="calc-grid-card-pill">PLAN YOUR GOALS</span>
+                    </div>
+                </div>
+
+                <!-- 05 Dream Vacation -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="calc-grid-card" data-calc-id="dream-vacation" data-calc-idx="4">
+                        <div class="calc-grid-card-icon-box">
+                            <i class="fa fa-plane"></i>
+                        </div>
+                        <h4 class="calc-grid-card-title">Dream Vacation</h4>
+                        <span class="calc-grid-card-pill">PLAN YOUR GOALS</span>
+                    </div>
+                </div>
+
+                <!-- 06 SIP + SWP -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="calc-grid-card" data-calc-id="sip-swp" data-calc-idx="5">
+                        <div class="calc-grid-card-icon-box">
+                            <i class="fa fa-exchange-alt"></i>
+                        </div>
+                        <h4 class="calc-grid-card-title">SIP + SWP Calculator</h4>
+                        <span class="calc-grid-card-pill">INVEST &amp; GROW</span>
+                    </div>
+                </div>
+
+                <!-- 07 Step-Up SIP -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="calc-grid-card" data-calc-id="step-up-sip" data-calc-idx="6">
+                        <div class="calc-grid-card-icon-box">
+                            <i class="fa fa-chart-line"></i>
+                        </div>
+                        <h4 class="calc-grid-card-title">Step-Up SIP Calculator</h4>
+                        <span class="calc-grid-card-pill">INVEST &amp; GROW</span>
+                    </div>
+                </div>
+
+                <!-- 08 1 Crore -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="calc-grid-card" data-calc-id="first-1-crore" data-calc-idx="7">
+                        <div class="calc-grid-card-icon-box">
+                            <i class="fa fa-trophy"></i>
+                        </div>
+                        <h4 class="calc-grid-card-title">₹1 Crore Goal Planner</h4>
+                        <span class="calc-grid-card-pill">INVEST &amp; GROW</span>
+                    </div>
+                </div>
+
+                <!-- 09 Loan EMI -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="calc-grid-card" data-calc-id="loan-emi" data-calc-idx="8">
+                        <div class="calc-grid-card-icon-box">
+                            <i class="fa fa-university"></i>
+                        </div>
+                        <h4 class="calc-grid-card-title">Loan EMI Calculator</h4>
+                        <span class="calc-grid-card-pill">LOANS &amp; DEBT</span>
+                    </div>
+                </div>
+
+                <!-- 10 Earn Back EMI -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="calc-grid-card" data-calc-id="earn-back-emi" data-calc-idx="9">
+                        <div class="calc-grid-card-icon-box">
+                            <i class="fa fa-sync-alt"></i>
+                        </div>
+                        <h4 class="calc-grid-card-title">Earn Back EMI Calculator</h4>
+                        <span class="calc-grid-card-pill">LOANS &amp; DEBT</span>
+                    </div>
+                </div>
+
+                <!-- 11 Loan Prepayment -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="calc-grid-card" data-calc-id="loan-repay" data-calc-idx="10">
+                        <div class="calc-grid-card-icon-box">
+                            <i class="fa fa-shield-alt"></i>
+                        </div>
+                        <h4 class="calc-grid-card-title">Loan Prepayment</h4>
+                        <span class="calc-grid-card-pill">LOANS &amp; DEBT</span>
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
-    <!-- Calculator Category Quick Select Bar End -->
+    </section>
+    <!-- Calculator Directory Hub Grid End -->
 
     <!-- Explore Your Financial Possibilities (Interactive Financial Calculators) Start -->
     <section class="calc-experience-section position-relative" id="financial-calculators">
@@ -135,7 +256,10 @@
                     <!-- Calculator Meta Header -->
                     <div class="calc-card-header">
                         <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-1">
-                            <div class="calc-tool-badge" id="calc-tool-badge">01 / GOAL SIP CALCULATOR</div>
+                            <div class="d-flex align-items-center gap-2">
+                                <a href="#calc-directory-grid" class="calc-back-grid-btn"><i class="fa fa-th-large me-1 text-gold"></i> All Tools</a>
+                                <div class="calc-tool-badge" id="calc-tool-badge">01 / GOAL SIP CALCULATOR</div>
+                            </div>
                             <div class="d-flex align-items-center gap-3">
                                 <div class="calc-quick-tag"><i class="fa fa-chart-pie me-1 text-gold"></i> Dynamic
                                     Interactive Engine</div>
@@ -223,33 +347,6 @@
 
                 </div>
 
-            </div>
-
-            <!-- Horizontal Moving Calculator Rail (Explore Financial Tools) -->
-            <div class="calc-rail-section mt-3 pt-1 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="d-flex align-items-center justify-content-between mb-2 px-1">
-                    <h4 class="calc-rail-heading mb-0">
-                        <i class="fa fa-compass text-gold me-2"></i>EXPLORE ALL 11 FINANCIAL TOOLS
-                    </h4>
-                    <div class="d-flex align-items-center">
-                        <span class="calc-rail-tagline d-none d-md-inline me-3">
-                            Different goals. A brighter you. <span class="calc-rail-tagline-dot"></span>
-                        </span>
-                        <div class="d-flex gap-2">
-                            <button type="button" class="calc-rail-nav-btn" id="calc-rail-prev"
-                                aria-label="Previous Tool"><i class="fa fa-chevron-left"></i></button>
-                            <button type="button" class="calc-rail-nav-btn" id="calc-rail-next"
-                                aria-label="Next Tool"><i class="fa fa-chevron-right"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Continuous Rail Marquee -->
-                <div class="calc-rail-marquee" id="calc-rail-marquee">
-                    <div class="calc-rail-track" id="calc-rail-track">
-                        <!-- 11 Calculator Interactive Cards rendered dynamically & duplicated for infinite loop -->
-                    </div>
-                </div>
             </div>
 
         </div>

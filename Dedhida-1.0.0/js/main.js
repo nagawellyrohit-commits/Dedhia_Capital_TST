@@ -1718,13 +1718,13 @@
         const calcIcons = {
             "goal-sip": '<i class="fa fa-bullseye"></i>',
             "retirement": '<i class="fa fa-chair"></i>',
-            "education": '<i class="fa fa-graduation-cap"></i>',
-            "marriage": '<i class="fa fa-ring"></i>',
-            "holiday": '<i class="fa fa-plane"></i>',
-            "sip-swp": '<i class="fa fa-rupee-sign"></i>',
+            "fire": '<i class="fa fa-fire"></i>',
+            "child-edu": '<i class="fa fa-graduation-cap"></i>',
+            "dream-vacation": '<i class="fa fa-plane"></i>',
+            "sip-swp": '<i class="fa fa-exchange-alt"></i>',
             "step-up-sip": '<i class="fa fa-chart-line"></i>',
             "first-1-crore": '<i class="fa fa-trophy"></i>',
-            "loan-debt": '<i class="fa fa-university"></i>',
+            "loan-emi": '<i class="fa fa-university"></i>',
             "earn-back-emi": '<i class="fa fa-sync-alt"></i>',
             "loan-repay": '<i class="fa fa-shield-alt"></i>'
         };
@@ -1751,8 +1751,9 @@
         }
         activeCalcIndex = initialIdx;
 
-        // Render Horizontal Calculator Rail (11 Modules with Icons)
+        // Render Horizontal Calculator Rail (if present)
         function renderRail() {
+            if (!$railTrack.length) return;
             let railHtml = '';
             for (let copy = 0; copy < 2; copy++) {
                 calculators.forEach((calc, idx) => {
@@ -1778,8 +1779,8 @@
             $railTrack.find('.calc-rail-card').on('click', function(e) {
                 e.preventDefault();
                 const targetIdx = parseInt($(this).data('calc-idx'), 10);
-                if (targetIdx !== activeCalcIndex) {
-                    switchCalculator(targetIdx);
+                if (!isNaN(targetIdx)) {
+                    switchCalculator(targetIdx, true);
                 }
             });
         }
@@ -1795,13 +1796,32 @@
             $marquee.animate({ scrollLeft: $marquee.scrollLeft() + 260 }, 300);
         });
 
+        // Bind Directory Grid Cards on Dedicated Calculators Page
+        $(document).on('click', '.calc-grid-card', function(e) {
+            e.preventDefault();
+            const targetId = $(this).data('calc-id');
+            const targetIdx = parseInt($(this).data('calc-idx'), 10);
+
+            let idx = -1;
+            if (!isNaN(targetIdx) && targetIdx >= 0 && targetIdx < calculators.length && calculators[targetIdx].id === targetId) {
+                idx = targetIdx;
+            } else {
+                idx = calculators.findIndex(c => c.id === targetId);
+            }
+
+            if (idx !== -1) {
+                switchCalculator(idx, true);
+            }
+        });
+
         // Bind Category Filter Pills on Dedicated Calculators Page
         if ($categoryFilterBar.length) {
-            $categoryFilterBar.find('.calc-category-btn').on('click', function() {
+            $categoryFilterBar.find('.calc-category-btn').on('click', function(e) {
+                e.preventDefault();
                 const targetId = $(this).data('calc-id');
                 const targetIdx = calculators.findIndex(c => c.id === targetId);
-                if (targetIdx !== -1 && targetIdx !== activeCalcIndex) {
-                    switchCalculator(targetIdx);
+                if (targetIdx !== -1) {
+                    switchCalculator(targetIdx, true);
                 }
             });
         }
@@ -2039,6 +2059,10 @@
                 updateCalculation();
             }
 
+            // Sync active state in directory grid cards
+            $('.calc-grid-card').removeClass('active');
+            $(`.calc-grid-card[data-calc-id="${calc.id}"]`).addClass('active');
+
             // Sync active state in rail cards
             $railTrack.find('.calc-rail-card').removeClass('active');
             $railTrack.find(`.calc-rail-card[data-calc-idx="${activeCalcIndex}"]`).addClass('active');
@@ -2181,15 +2205,17 @@
         }
 
         // Switch Active Calculator
-        function switchCalculator(idx) {
+        function switchCalculator(idx, shouldScroll) {
             if (idx < 0 || idx >= calculators.length) return;
             activeCalcIndex = idx;
             renderActiveCalculator(true);
 
-            // Smooth scroll into view if on mobile/desktop
-            const topOffset = $calcContainer.offset().top - 80;
-            if (window.scrollY > topOffset + 300 || window.scrollY < topOffset - 200) {
-                $('html, body').animate({ scrollTop: topOffset }, 400);
+            if (shouldScroll) {
+                const $targetSection = $('#financial-calculators').length ? $('#financial-calculators') : $calcContainer;
+                if ($targetSection.length) {
+                    const topOffset = $targetSection.offset().top - 75;
+                    $('html, body').stop().animate({ scrollTop: topOffset }, 450);
+                }
             }
         }
 
