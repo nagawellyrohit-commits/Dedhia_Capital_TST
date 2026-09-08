@@ -6,10 +6,10 @@
     <title>Financial Planning Calculators - DEDHIA CAPITAL | Interactive Wealth Tools</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta
-        content="DEDHIA CAPITAL, Financial Calculators, Goal SIP Calculator, Retirement Calculator, Child Education, SIP SWP Calculator, Step-up SIP, Loan EMI, 1 Crore Calculator"
+        content="DEDHIA CAPITAL, Financial Calculators, Goal SIP Calculator, Retirement Calculator, Child Education, SWP Calculator, Step-up SIP, Loan EMI, 1 Crore Calculator, Lumpsum SIP Calculator"
         name="keywords">
     <meta
-        content="Explore 11 interactive financial planning calculators by DEDHIA CAPITAL. Calculate Goal SIPs, retirement corpus, compounding acceleration, EMI optimizations, and debt-free roadmaps."
+        content="Explore 12 interactive financial planning calculators by DEDHIA CAPITAL. Calculate Goal SIPs, Lumpsum + SIP growth, retirement corpus, compounding acceleration, EMI optimizations, and debt-free roadmaps."
         name="description">
 
     <!-- Favicon -->
@@ -61,7 +61,25 @@
                     <a href="about.html" class="nav-item nav-link">About</a>
                     <a href="calculators.html" class="nav-item nav-link active">Tools</a>
                     <a href="service.html" class="nav-item nav-link">Services</a>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+                    <div class="nav-item dropdown nav-login-dropdown ms-lg-2 my-2 my-lg-0">
+                        <button class="btn btn-nav-login" type="button" id="navLoginDropdown" aria-expanded="false">
+                            <span>Login</span>
+                            <i class="fa fa-chevron-down ms-1" style="font-size: 0.72rem;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end nav-login-menu" aria-labelledby="navLoginDropdown">
+                            <li>
+                                <a class="dropdown-item" href="https://onedigital.centricity.co.in/login" target="_blank" rel="noopener noreferrer">
+                                    <i class="fa fa-user me-2"></i> FundsIndia Login
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="https://www.fundzbazar.com/signin" target="_blank" rel="noopener noreferrer">
+                                    <i class="fa fa-user me-2"></i> FundzBazar Login
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="d-none d-lg-flex ms-2">
                     <a class="btn btn-primary py-2 px-4" href="contact.html">Book Advisory</a>
@@ -165,13 +183,13 @@
                     </div>
                 </div>
 
-                <!-- 06 SIP + SWP -->
+                <!-- 06 SWP Calculator with Inflation -->
                 <div class="col-6 col-md-4 col-lg-3 col-xl-3">
                     <div class="calc-grid-card" data-calc-id="sip-swp" data-calc-idx="5">
                         <div class="calc-grid-card-icon-box">
                             <i class="fa fa-exchange-alt"></i>
                         </div>
-                        <h4 class="calc-grid-card-title">SIP + SWP Calculator</h4>
+                        <h4 class="calc-grid-card-title">SWP Calculator with Inflation</h4>
                         <span class="calc-grid-card-pill">INVEST &amp; GROW</span>
                     </div>
                 </div>
@@ -228,6 +246,17 @@
                         </div>
                         <h4 class="calc-grid-card-title">Loan Prepayment</h4>
                         <span class="calc-grid-card-pill">LOANS &amp; DEBT</span>
+                    </div>
+                </div>
+
+                <!-- 12 Lumpsum + SIP -->
+                <div class="col-6 col-md-4 col-lg-3 col-xl-3">
+                    <div class="calc-grid-card" data-calc-id="lumpsum-sip" data-calc-idx="11">
+                        <div class="calc-grid-card-icon-box">
+                            <i class="fa fa-layer-group"></i>
+                        </div>
+                        <h4 class="calc-grid-card-title">Lumpsum + SIP Calculator</h4>
+                        <span class="calc-grid-card-pill">INVEST &amp; GROW</span>
                     </div>
                 </div>
 
@@ -308,6 +337,9 @@
                                     <!-- Dynamic metrics rendered by JS Engine -->
                                 </div>
 
+                                <!-- Dynamic Alert / Depletion Banner -->
+                                <div id="calc-alert-banner" class="calc-alert-banner d-none"></div>
+
                                 <!-- Dynamic Data Visualization Chart -->
                                 <div class="calc-chart-container mt-1">
                                     <div class="d-flex align-items-center justify-content-between mb-1">
@@ -377,24 +409,22 @@
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-4 col-md-6">
-                    <h4 class="text-white mb-4">DEDHIA CAPITAL</h4>
-                    <p class="text-white-50 mb-2">Dedhia capital Registered Mutual Fund Distributor (ARN: 0748)</p>
-                    <p class="text-white-50 mb-2"><i class="fa fa-map-marker-alt me-2"></i>Plot No. 129, Dedhia House,
-                        Near Jain Temple, Jawahar Nagar, Goregaon West, Mumbai, Maharashtra 400062</p>
-                    <p class="text-white-50 mb-2"><i class="fa fa-phone-alt me-2"></i>+91 98200 48800</p>
-                    <p class="text-white-50 mb-2"><i class="fa fa-envelope me-2"></i>info@dedhiacapital.com</p>
-                    <div class="d-flex pt-3">
-                        <a class="btn btn-square btn-outline-light rounded-circle me-2" href="#"><i
-                                class="fab fa-twitter"></i></a>
-                        <a class="btn btn-square btn-outline-light rounded-circle me-2" href="#"><i
-                                class="fab fa-facebook-f"></i></a>
+                    <div class="footer-logo-wrap">
+                        <img alt="DEDHIA CAPITAL" src="img/logo.png" />
+                    </div>
+                    <p class="text-light-50 mb-3">Dedhia capital Registered Mutual Fund Distributor. Delivering holistic
+                        wealth management, disciplined portfolio, and bespoke financial solutions for families,
+                        HNIs, and business owners.</p>
+                    <div class="d-flex pt-2">
                         <a class="btn btn-square btn-outline-light rounded-circle me-2" href="#"><i
                                 class="fab fa-linkedin-in"></i></a>
                         <a class="btn btn-square btn-outline-light rounded-circle me-2" href="#"><i
-                                class="fab fa-instagram"></i></a>
+                                class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-square btn-outline-light rounded-circle me-2" href="#"><i
+                                class="fab fa-twitter"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6 footer-services-col d-none d-md-block">
                     <h4 class="text-white mb-4">Our Services</h4>
                     <div class="row">
                         <div class="col-6">
@@ -420,7 +450,6 @@
                     <h4 class="text-white mb-4">Quick Links</h4>
                     <a class="btn btn-link" href="index.html">Home</a>
                     <a class="btn btn-link" href="about.html">About Us</a>
-                    <a class="btn btn-link" href="calculators.html">Calculators</a>
                     <a class="btn btn-link" href="service.html">Our Services</a>
                     <a class="btn btn-link" href="contact.html">Contact Us</a>
                 </div>
@@ -434,10 +463,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    © <a class="border-bottom" href="#">DEDHIA CAPITAL</a>, All Rights Reserved.
+                    © <a class="border-bottom" href="#">DEDHIA CAPITAL</a> All Rights Reserved- Nainish
+                    Dedhia,<br />AMFI Registered Mutual Fund Distibutor, ARN Number - 360406
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    Mutual fund investments are subject to market risks. Read all scheme related documents carefully.
+                    Desgin By @TST - thestorytellers.asia<br />email:-info@thestorytellers.asia
                 </div>
             </div>
         </div>

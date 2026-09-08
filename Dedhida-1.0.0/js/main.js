@@ -1,9 +1,9 @@
-(function($) {
+(function ($) {
     "use strict";
 
     // Spinner
-    var spinner = function() {
-        setTimeout(function() {
+    var spinner = function () {
+        setTimeout(function () {
             if ($('#spinner').length > 0) {
                 $('#spinner').removeClass('show');
             }
@@ -17,7 +17,7 @@
 
 
     // Fixed navbar — transparent at the top, subtle glass on scroll.
-    $(window).on('scroll', function() {
+    $(window).on('scroll', function () {
         if ($(window).scrollTop() > 20) {
             $('.fixed-top').addClass('nav-scrolled');
         } else {
@@ -31,14 +31,14 @@
 
 
     // Back to top button
-    $(window).scroll(function() {
+    $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
             $('.back-to-top').fadeIn('slow');
         } else {
             $('.back-to-top').fadeOut('slow');
         }
     });
-    $('.back-to-top').click(function() {
+    $('.back-to-top').click(function () {
         $('html, body').animate({ scrollTop: 0 }, 1500, 'easeInOutExpo');
         return false;
     });
@@ -54,7 +54,7 @@
 
     // Premium stat counters — animate only when the metrics enter the viewport.
     function animatePremiumStats() {
-        $('.stat-number').each(function() {
+        $('.stat-number').each(function () {
             var $el = $(this);
             if ($el.data('animated')) return;
             var rect = this.getBoundingClientRect();
@@ -65,10 +65,10 @@
                 $({ value: 0 }).animate({ value: target }, {
                     duration: 1500,
                     easing: 'swing',
-                    step: function(now) {
+                    step: function (now) {
                         $el.text(Math.floor(now).toLocaleString('en-IN') + suffix);
                     },
-                    complete: function() { $el.text(target.toLocaleString('en-IN') + suffix); }
+                    complete: function () { $el.text(target.toLocaleString('en-IN') + suffix); }
                 });
             }
         });
@@ -120,7 +120,7 @@
         // Reveal individual milestone nodes consistently as the user scrolls
         var steps = wrapper.querySelectorAll('.roadmap-step');
         var threshold = window.innerWidth < 768 ? window.innerHeight * 0.95 : window.innerHeight * 0.82;
-        steps.forEach(function(step) {
+        steps.forEach(function (step) {
             var rect = step.getBoundingClientRect();
             if (rect.top < threshold) step.classList.add('is-visible');
             else step.classList.remove('is-visible');
@@ -310,6 +310,9 @@
         const $dots = $('.fw-dot');
         const $pipelineTabs = $('.pipeline-tab');
         const $frameworkSection = $('#our-framework');
+        const $prevButtons = $('#fw-prev-btn, #fw-card-prev');
+        const $nextButtons = $('#fw-next-btn, #fw-card-next');
+        const $counter = $('#fw-counter');
 
         if (!$frameworkSection.length) return;
 
@@ -321,24 +324,27 @@
             const slide = frameworkData[index];
             currentIndex = index;
 
-            // Sync indicators & tabs immediately
+            // Sync indicators, tabs & counter badge
             $dots.removeClass('active').eq(index).addClass('active');
             $pipelineTabs.removeClass('active').attr('aria-selected', 'false');
             $pipelineTabs.eq(index).addClass('active').attr('aria-selected', 'true');
+            if ($counter.length) {
+                $counter.text(String(index + 1).padStart(2, '0') + ' / ' + String(frameworkData.length).padStart(2, '0'));
+            }
 
             // Soft exit transition
             $contentCard.addClass('fw-fade-out');
             $image.addClass('fw-img-fade');
             $caption.addClass('fw-caption-fade');
 
-            setTimeout(function() {
+            setTimeout(function () {
                 // Update text and bullets
                 $eyebrow.text(slide.eyebrow);
                 $heading.text(slide.heading);
                 $desc.text(slide.description);
 
                 let bulletsHtml = '';
-                slide.bullets.forEach(function(b) {
+                slide.bullets.forEach(function (b) {
                     bulletsHtml += `<li><span class="fw-check-icon"><i class="bi bi-check2"></i></span><span class="fw-bullet-text">${b}</span></li>`;
                 });
                 $bullets.html(bulletsHtml);
@@ -353,8 +359,9 @@
                 $image.removeClass('fw-img-fade');
                 $caption.removeClass('fw-caption-fade');
 
-                setTimeout(function() {
+                setTimeout(function () {
                     $contentCard.removeClass('fw-fade-in');
+                    syncFrameworkCardHeight();
                 }, 350);
             }, 250);
 
@@ -365,7 +372,7 @@
 
         function startAutoplay() {
             stopAutoplay();
-            autoplayTimer = setInterval(function() {
+            autoplayTimer = setInterval(function () {
                 if (!isHovered) {
                     goToSlide(currentIndex + 1, false);
                 }
@@ -385,23 +392,51 @@
         }
 
         // Click handler for dots
-        $dots.on('click', function(e) {
+        $dots.on('click', function (e) {
             e.preventDefault();
             const targetIdx = parseInt($(this).data('index'), 10);
             goToSlide(targetIdx, true);
         });
 
         // Click handler for pipeline tabs
-        $pipelineTabs.on('click', function(e) {
+        $pipelineTabs.on('click', function (e) {
             e.preventDefault();
             const targetIdx = parseInt($(this).data('slide'), 10);
             goToSlide(targetIdx, true);
         });
 
+        // Click handlers for scroller arrows (< and >)
+        $prevButtons.on('click', function (e) {
+            e.preventDefault();
+            goToSlide(currentIndex - 1, true);
+        });
+
+        $nextButtons.on('click', function (e) {
+            e.preventDefault();
+            goToSlide(currentIndex + 1, true);
+        });
+
+        // Keyboard arrow navigation (< Left and > Right) when framework is in view
+        $(document).on('keydown', function (e) {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                const fwEl = document.getElementById('our-framework');
+                if (fwEl) {
+                    const rect = fwEl.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        if (e.key === 'ArrowLeft') {
+                            goToSlide(currentIndex - 1, true);
+                        } else if (e.key === 'ArrowRight') {
+                            goToSlide(currentIndex + 1, true);
+                        }
+                    }
+                }
+            }
+        });
+
         // Pause autoplay on mouse enter / hover
-        $frameworkSection.on('mouseenter', function() {
+        $frameworkSection.on('mouseenter', function () {
             isHovered = true;
-        }).on('mouseleave', function() {
+        }).on('mouseleave', function () {
             isHovered = false;
         });
 
@@ -410,11 +445,11 @@
         let touchEndX = 0;
         const $swipeTarget = $('#framework-carousel');
 
-        $swipeTarget.on('touchstart', function(e) {
+        $swipeTarget.on('touchstart', function (e) {
             touchStartX = e.originalEvent.changedTouches[0].screenX;
         }, { passive: true });
 
-        $swipeTarget.on('touchend', function(e) {
+        $swipeTarget.on('touchend', function (e) {
             touchEndX = e.originalEvent.changedTouches[0].screenX;
             handleSwipe();
         }, { passive: true });
@@ -427,6 +462,42 @@
             } else if (touchEndX > touchStartX + threshold) {
                 // Swiped Right -> Prev slide
                 goToSlide(currentIndex - 1, true);
+            }
+        }
+
+        function syncFrameworkCardHeight() {
+            if (window.innerWidth >= 992) {
+                const leftCol = document.querySelector('.framework-col-left');
+                const imgCard = document.querySelector('.framework-image-card');
+                if (leftCol && imgCard) {
+                    const h = Math.round(leftCol.getBoundingClientRect().height);
+                    if (h > 100) {
+                        imgCard.style.height = h + 'px';
+                        imgCard.style.minHeight = h + 'px';
+                        imgCard.style.maxHeight = h + 'px';
+                    }
+                }
+            } else {
+                const imgCard = document.querySelector('.framework-image-card');
+                if (imgCard) {
+                    imgCard.style.height = '';
+                    imgCard.style.minHeight = '';
+                    imgCard.style.maxHeight = '';
+                }
+            }
+        }
+
+        syncFrameworkCardHeight();
+        window.addEventListener('resize', syncFrameworkCardHeight);
+        window.addEventListener('load', syncFrameworkCardHeight);
+
+        if (window.ResizeObserver) {
+            const leftColEl = document.querySelector('.framework-col-left');
+            if (leftColEl) {
+                const ro = new ResizeObserver(() => {
+                    syncFrameworkCardHeight();
+                });
+                ro.observe(leftColEl);
             }
         }
 
@@ -528,7 +599,7 @@
                         helper: ""
                     }
                 ],
-                calculate: function(v) {
+                calculate: function (v) {
                     const cost = parseNum(v.currentCost);
                     const years = parseNum(v.years);
                     const ret = parseNum(v.expectedReturn) / 100;
@@ -657,7 +728,7 @@
                         prefix: "₹"
                     }
                 ],
-                calculate: function(v) {
+                calculate: function (v) {
                     const curAge = parseNum(v.currentAge);
                     let retAge = parseNum(v.retirementAge);
                     if (retAge <= curAge) retAge = curAge + 1;
@@ -794,7 +865,7 @@
                         suffix: "%"
                     }
                 ],
-                calculate: function(v) {
+                calculate: function (v) {
                     const curAge = parseNum(v.currentAge);
                     const annualExp = parseNum(v.annualExpenses);
                     const curInvest = parseNum(v.currentInvestments);
@@ -922,7 +993,7 @@
                         prefix: "₹"
                     }
                 ],
-                calculate: function(v) {
+                calculate: function (v) {
                     const cAge = parseNum(v.childAge);
                     let eAge = parseNum(v.eduAge);
                     if (eAge <= cAge) eAge = cAge + 1;
@@ -1026,7 +1097,7 @@
                         suffix: "%"
                     }
                 ],
-                calculate: function(v) {
+                calculate: function (v) {
                     const cost = parseNum(v.currentCost);
                     const yrs = parseNum(v.years);
                     const inf = parseNum(v.inflation) / 100;
@@ -1075,137 +1146,169 @@
             {
                 id: "sip-swp",
                 num: "06",
-                name: "SIP + SWP",
-                fullName: "SIP + SWP CALCULATOR",
-                benefit: "Build your corpus. Then create an income.",
-                headline: "Build Wealth. Then Make It Work for You.",
-                subtext: "Accumulate wealth via SIP and generate steady monthly income through SWP.",
+                name: "SWP (Inflation)",
+                fullName: "SWP CALCULATOR WITH INFLATION",
+                benefit: "Plan steady monthly income that beats inflation.",
+                headline: "Will Your Corpus Last As Long As You Need It?",
+                subtext: "Simulate systematic withdrawals with annual inflation step-up and see exactly how long your corpus lasts.",
                 inputs: [
                     {
-                        id: "monthlySip",
-                        label: "Stage 01: Monthly SIP",
+                        id: "startingInvestment",
+                        label: "Starting Investment",
                         type: "slider",
-                        min: 5000,
-                        max: 200000,
-                        step: 2500,
-                        default: 25000,
+                        min: 500000,
+                        max: 100000000,
+                        step: 50000,
+                        default: 10000000,
                         prefix: "₹"
                     },
                     {
-                        id: "accumYears",
-                        label: "Accumulation Horizon",
+                        id: "monthlyWithdrawal",
+                        label: "Monthly Withdrawal",
                         type: "slider",
-                        min: 3,
-                        max: 30,
+                        min: 1000,
+                        max: 2000000,
+                        step: 2500,
+                        default: 80000,
+                        prefix: "₹"
+                    },
+                    {
+                        id: "timeHorizon",
+                        label: "Time Horizon",
+                        type: "slider",
+                        min: 1,
+                        max: 40,
                         step: 1,
-                        default: 15,
+                        default: 25,
                         suffix: " Yrs"
                     },
                     {
-                        id: "accumReturn",
-                        label: "SIP Return Rate",
+                        id: "annualReturn",
+                        label: "Expected Annual Return",
                         type: "slider",
-                        min: 8,
-                        max: 16,
+                        min: 1,
+                        max: 25,
                         step: 0.5,
-                        default: 12,
+                        default: 10,
                         suffix: "%"
                     },
                     {
-                        id: "monthlySwp",
-                        label: "Stage 02: Monthly SWP Payout",
+                        id: "inflationStepUp",
+                        label: "Inflation Rate / Step-Up",
                         type: "slider",
-                        min: 10000,
-                        max: 300000,
-                        step: 5000,
-                        default: 55000,
-                        prefix: "₹"
-                    },
-                    {
-                        id: "withYears",
-                        label: "Withdrawal Duration",
-                        type: "slider",
-                        min: 5,
-                        max: 30,
-                        step: 1,
-                        default: 15,
-                        suffix: " Yrs"
-                    },
-                    {
-                        id: "postReturn",
-                        label: "SWP Return Rate",
-                        type: "slider",
-                        min: 6,
-                        max: 12,
+                        min: 0,
+                        max: 20,
                         step: 0.5,
-                        default: 8,
+                        default: 6,
                         suffix: "%"
                     }
                 ],
-                calculate: function(v) {
-                    const sip = parseNum(v.monthlySip);
-                    const aYrs = parseNum(v.accumYears);
-                    const aRet = parseNum(v.accumReturn) / 100;
-                    const swp = parseNum(v.monthlySwp);
-                    const wYrs = parseNum(v.withYears);
-                    const wRet = parseNum(v.postReturn) / 100;
+                calculate: function (v) {
+                    const starting = parseNum(v.startingInvestment !== undefined ? v.startingInvestment : (v.monthlySip || 10000000));
+                    const monthlyW = parseNum(v.monthlyWithdrawal !== undefined ? v.monthlyWithdrawal : (v.monthlySwp || 80000));
+                    const years = parseNum(v.timeHorizon !== undefined ? v.timeHorizon : (v.withYears || 25));
+                    const returnRate = parseNum(v.annualReturn !== undefined ? v.annualReturn : (v.postReturn || 10)) / 100;
+                    const stepUp = parseNum(v.inflationStepUp !== undefined ? v.inflationStepUp : 6) / 100;
 
-                    // Phase 1: SIP Accumulation
-                    const aMonths = aYrs * 12;
-                    const aMRate = aRet / 12;
-                    const corpusCreated = sip * ((Math.pow(1 + aMRate, aMonths) - 1) / aMRate) * (1 + aMRate);
+                    // Compounding: Effective monthly rate compounded monthly (Matches Finnovate logic)
+                    const rMonthly = Math.pow(1 + returnRate, 1 / 12) - 1;
+                    const totalMonths = years * 12;
 
-                    // Phase 2: SWP Decumulation
-                    const wMonths = wYrs * 12;
-                    const wMRate = wRet / 12;
-                    let remaining = corpusCreated;
+                    let corpus = starting;
+                    let totalWithdrawn = 0;
+                    let depletedMonth = null;
+                    const yearEndBalances = [starting];
 
-                    for (let m = 1; m <= wMonths; m++) {
-                        remaining = remaining * (1 + wMRate) - swp;
-                        if (remaining <= 0) {
-                            remaining = 0;
+                    // Month-by-month simulation:
+                    // Withdrawals at the start of the month (before that month's growth),
+                    // selected step-up applied once per year (not gradually).
+                    for (let m = 1; m <= totalMonths; m++) {
+                        const yr = Math.floor((m - 1) / 12);
+                        const w = monthlyW * Math.pow(1 + stepUp, yr);
+
+                        if (corpus <= w) {
+                            totalWithdrawn += corpus;
+                            corpus = 0;
+                            depletedMonth = m;
                             break;
+                        } else {
+                            corpus -= w;
+                            totalWithdrawn += w;
+                            corpus = corpus * (1 + rMonthly);
+                        }
+
+                        if (m % 12 === 0) {
+                            yearEndBalances.push(corpus);
                         }
                     }
 
-                    const totalWithdrawals = swp * wMonths;
+                    // Fill remaining year ends if depleted early
+                    while (yearEndBalances.length <= years) {
+                        yearEndBalances.push(0);
+                    }
 
-                    // Chart combines 2 stages
+                    const totalProfit = Math.max(0, totalWithdrawn + corpus - starting);
+                    const withdrawalRate = starting > 0 ? ((monthlyW * 12) / starting * 100).toFixed(1) : "0.0";
+                    const initialAnnualExp = monthlyW * 12;
+
+                    let depTimeStr = "";
+                    let depLine = "";
+                    let depYearNum = 1;
+                    let depYearExpense = initialAnnualExp;
+
+                    if (depletedMonth !== null) {
+                        const dy = Math.floor(depletedMonth / 12);
+                        const dm = depletedMonth % 12;
+                        if (dy > 0 && dm > 0) {
+                            depTimeStr = dy + " years " + dm + " months";
+                        } else if (dy > 0) {
+                            depTimeStr = dy + " years";
+                        } else {
+                            depTimeStr = dm + " months";
+                        }
+                        depLine = "Corpus will deplete in " + depTimeStr + " at current assumptions.";
+                        depYearNum = Math.floor((depletedMonth - 1) / 12) + 1;
+                        depYearExpense = monthlyW * Math.pow(1 + stepUp, depYearNum - 1) * 12;
+                    }
+
+                    // Sample 7 chart points across horizon
                     const chartPoints = [];
-                    // Accumulation points
-                    for (let y = 0; y <= aYrs; y += Math.max(1, Math.floor(aYrs / 6))) {
-                        const m = y * 12;
-                        const factor = m > 0 ? (Math.pow(1 + aMRate, m) - 1) / aMRate * (1 + aMRate) : 0;
+                    const stepInterval = Math.max(1, Math.floor(years / 6));
+                    for (let y = 0; y <= years; y += stepInterval) {
                         chartPoints.push({
                             label: "Y" + y,
-                            growth: sip * factor,
-                            invest: sip * m
+                            growth: Math.round(yearEndBalances[y] !== undefined ? yearEndBalances[y] : 0),
+                            invest: starting
                         });
                     }
-                    // SWP points
-                    let simBal = corpusCreated;
-                    for (let y = 1; y <= wYrs; y += Math.max(1, Math.floor(wYrs / 6))) {
-                        for (let m = 1; m <= 12; m++) {
-                            simBal = simBal * (1 + wMRate) - swp;
-                            if (simBal < 0) simBal = 0;
-                        }
+                    if (chartPoints[chartPoints.length - 1].label !== "Y" + years) {
                         chartPoints.push({
-                            label: "W" + y,
-                            growth: simBal,
-                            invest: corpusCreated
+                            label: "Y" + years,
+                            growth: Math.round(yearEndBalances[years] !== undefined ? yearEndBalances[years] : 0),
+                            invest: starting
                         });
                     }
 
                     return {
-                        primaryLabel: "CORPUS CREATED (STAGE 01)",
-                        primaryVal: formatCompactINR(corpusCreated),
+                        primaryLabel: "TOTAL WITHDRAWN",
+                        primaryVal: formatINR(totalWithdrawn),
                         primaryUnit: "",
-                        primaryTagline: "Generates " + formatINR(swp) + " / month for " + wYrs + " years",
+                        primaryTagline: depletedMonth ? depLine : ("Generates inflation-adjusted income for " + years + " years"),
+                        alert: depletedMonth ? {
+                            type: "warning",
+                            text: depLine
+                        } : {
+                            type: "success",
+                            text: "Corpus remains sustainable throughout your " + years + "-year horizon with " + formatCompactINR(corpus) + " remaining."
+                        },
                         secondary: [
-                            { title: "MONTHLY SWP PAYOUT", val: formatINR(swp) },
-                            { title: "TOTAL WITHDRAWALS", val: formatCompactINR(totalWithdrawals) },
-                            { title: "REMAINING CORPUS", val: formatCompactINR(remaining) },
-                            { title: "TOTAL SIP INVESTED", val: formatCompactINR(sip * aMonths) }
+                            { title: "TOTAL PROFIT", val: formatINR(totalProfit) },
+                            { title: "ENDING CORPUS", val: formatINR(corpus) },
+                            { title: "WITHDRAWAL RATE", val: withdrawalRate + "%" },
+                            { 
+                                title: depletedMonth ? ("EXPENSES IN YR " + depYearNum) : "ANNUAL EXPENSES TODAY", 
+                                val: formatINR(depletedMonth ? depYearExpense : initialAnnualExp) 
+                            }
                         ],
                         chartPoints: chartPoints
                     };
@@ -1263,7 +1366,7 @@
                         suffix: "%"
                     }
                 ],
-                calculate: function(v) {
+                calculate: function (v) {
                     const baseSip = parseNum(v.startingSip);
                     const stepUpRate = parseNum(v.annualStepUp) / 100;
                     const yrs = parseNum(v.duration);
@@ -1351,7 +1454,7 @@
                         prefix: "₹"
                     }
                 ],
-                calculate: function(v) {
+                calculate: function (v) {
                     const sip = parseNum(v.monthlySip);
                     const ret = parseNum(v.expectedReturn) / 100;
                     const existing = parseNum(v.existingInvestment);
@@ -1453,7 +1556,7 @@
                         suffix: " Yrs"
                     }
                 ],
-                calculate: function(v) {
+                calculate: function (v) {
                     const principal = parseNum(v.loanAmount);
                     const rate = parseNum(v.interestRate) / 100;
                     const yrs = parseNum(v.tenureYears);
@@ -1536,7 +1639,7 @@
                         suffix: "%"
                     }
                 ],
-                calculate: function(v) {
+                calculate: function (v) {
                     const emi = parseNum(v.monthlyEmi);
                     const yrs = parseNum(v.loanTenure);
                     const ret = parseNum(v.expectedReturn) / 100;
@@ -1640,7 +1743,7 @@
                         prefix: "₹"
                     }
                 ],
-                calculate: function(v) {
+                calculate: function (v) {
                     const principal = parseNum(v.outstandingLoan);
                     const rate = parseNum(v.interestRate) / 100;
                     const origYears = parseNum(v.remainingTenure);
@@ -1692,6 +1795,119 @@
                         chartPoints: chartPoints
                     };
                 }
+            },
+            {
+                id: "lumpsum-sip",
+                num: "12",
+                name: "Lumpsum + SIP",
+                fullName: "LUMPSUM + SIP CALCULATOR",
+                benefit: "Combine upfront capital with regular monthly savings.",
+                headline: "Maximize Growth with Lumpsum + SIP.",
+                subtext: "See how combining an initial one-time investment with disciplined monthly SIP accelerates your wealth accumulation.",
+                inputs: [
+                    {
+                        id: "lumpsumAmount",
+                        label: "One-Time Investment Amount",
+                        type: "slider",
+                        min: 0,
+                        max: 10000000,
+                        step: 10000,
+                        default: 200000,
+                        prefix: "₹"
+                    },
+                    {
+                        id: "monthlySip",
+                        label: "Monthly Investment (SIP)",
+                        type: "slider",
+                        min: 0,
+                        max: 200000,
+                        step: 500,
+                        default: 2000,
+                        prefix: "₹"
+                    },
+                    {
+                        id: "expectedReturn",
+                        label: "Expected Rate of Return (p.a.)",
+                        type: "slider",
+                        min: 1,
+                        max: 25,
+                        step: 0.5,
+                        default: 12,
+                        suffix: "%"
+                    },
+                    {
+                        id: "investmentPeriod",
+                        label: "Period of Investment",
+                        type: "slider",
+                        min: 1,
+                        max: 35,
+                        step: 1,
+                        default: 10,
+                        suffix: " Yrs"
+                    }
+                ],
+                calculate: function (v) {
+                    const lumpsum = parseNum(v.lumpsumAmount !== undefined ? v.lumpsumAmount : 200000);
+                    const sip = parseNum(v.monthlySip !== undefined ? v.monthlySip : 2000);
+                    const rAnnual = parseNum(v.expectedReturn !== undefined ? v.expectedReturn : 12) / 100;
+                    const yrs = parseNum(v.investmentPeriod !== undefined ? v.investmentPeriod : 10);
+
+                    const months = yrs * 12;
+                    const mRate = rAnnual / 12;
+
+                    // 1. Lumpsum Future Value (compounded monthly)
+                    const lumpsumFV = lumpsum > 0 ? (months > 0 ? lumpsum * Math.pow(1 + mRate, months) : lumpsum) : 0;
+
+                    // 2. Monthly SIP Future Value (beginning of month annuity due)
+                    let sipFV = 0;
+                    if (sip > 0 && mRate > 0 && months > 0) {
+                        sipFV = sip * ((Math.pow(1 + mRate, months) - 1) / mRate) * (1 + mRate);
+                    } else if (sip > 0) {
+                        sipFV = sip * months;
+                    }
+
+                    // 3. Totals
+                    const totalCorpus = lumpsumFV + sipFV;
+                    const totalSipInvested = sip * months;
+                    const totalInvested = lumpsum + totalSipInvested;
+                    const totalWealthGain = Math.max(0, totalCorpus - totalInvested);
+
+                    // Chart points sampled across horizon
+                    const chartPoints = [];
+                    const stepInterval = Math.max(1, Math.floor(yrs / 6));
+                    for (let y = 0; y <= yrs; y += stepInterval) {
+                        const m = y * 12;
+                        const lFV = lumpsum > 0 ? lumpsum * Math.pow(1 + mRate, m) : 0;
+                        const sFV = (sip > 0 && mRate > 0 && m > 0) ? (sip * ((Math.pow(1 + mRate, m) - 1) / mRate) * (1 + mRate)) : (sip * m);
+                        const investedSoFar = lumpsum + (sip * m);
+                        chartPoints.push({
+                            label: "Y" + y,
+                            growth: Math.round(lFV + sFV),
+                            invest: Math.round(investedSoFar)
+                        });
+                    }
+                    if (chartPoints[chartPoints.length - 1].label !== "Y" + yrs) {
+                        chartPoints.push({
+                            label: "Y" + yrs,
+                            growth: Math.round(totalCorpus),
+                            invest: Math.round(totalInvested)
+                        });
+                    }
+
+                    return {
+                        primaryLabel: "TOTAL ESTIMATED CORPUS",
+                        primaryVal: formatCompactINR(totalCorpus),
+                        primaryUnit: "",
+                        primaryTagline: "₹ " + Math.round(totalInvested).toLocaleString('en-IN') + " invested yields ₹ " + Math.round(totalWealthGain).toLocaleString('en-IN') + " wealth gain",
+                        secondary: [
+                            { title: "TOTAL INVESTED", val: formatCompactINR(totalInvested) },
+                            { title: "ESTIMATED RETURNS", val: formatCompactINR(totalWealthGain) },
+                            { title: "LUMPSUM VALUE", val: formatCompactINR(lumpsumFV) },
+                            { title: "SIP VALUE", val: formatCompactINR(sipFV) }
+                        ],
+                        chartPoints: chartPoints
+                    };
+                }
             }
         ];
 
@@ -1707,6 +1923,7 @@
         const $primaryVal = $('#calc-primary-val');
         const $primaryTagline = $('#calc-primary-tagline');
         const $secondaryMetrics = $('#calc-secondary-metrics');
+        const $calcAlertBanner = $('#calc-alert-banner');
         const $railTrack = $('#calc-rail-track');
         const $categoryFilterBar = $('#calc-page-filter-bar');
         const $chartOverlayVal = $('#calc-chart-overlay-val');
@@ -1726,7 +1943,8 @@
             "first-1-crore": '<i class="fa fa-trophy"></i>',
             "loan-emi": '<i class="fa fa-university"></i>',
             "earn-back-emi": '<i class="fa fa-sync-alt"></i>',
-            "loan-repay": '<i class="fa fa-shield-alt"></i>'
+            "loan-repay": '<i class="fa fa-shield-alt"></i>',
+            "lumpsum-sip": '<i class="fa fa-layer-group"></i>'
         };
 
         calculators.forEach(c => {
@@ -1734,9 +1952,9 @@
         });
 
         // Detect current page
-        const isHomePage = window.location.pathname.endsWith('index.html') || 
-                           window.location.pathname.endsWith('/') || 
-                           window.location.pathname.split('/').pop() === '';
+        const isHomePage = window.location.pathname.endsWith('index.html') ||
+            window.location.pathname.endsWith('/') ||
+            window.location.pathname.split('/').pop() === '';
 
         // Check URL parameter or hash for requested calculator
         const urlParams = new URLSearchParams(window.location.search);
@@ -1776,7 +1994,7 @@
             $railTrack.html(railHtml);
 
             // Bind click events on rail cards
-            $railTrack.find('.calc-rail-card').on('click', function(e) {
+            $railTrack.find('.calc-rail-card').on('click', function (e) {
                 e.preventDefault();
                 const targetIdx = parseInt($(this).data('calc-idx'), 10);
                 if (!isNaN(targetIdx)) {
@@ -1786,18 +2004,18 @@
         }
 
         // Bind Rail Nav Prev / Next buttons
-        $('#calc-rail-prev').on('click', function() {
+        $('#calc-rail-prev').on('click', function () {
             const $marquee = $('#calc-rail-marquee');
             $marquee.animate({ scrollLeft: $marquee.scrollLeft() - 260 }, 300);
         });
 
-        $('#calc-rail-next').on('click', function() {
+        $('#calc-rail-next').on('click', function () {
             const $marquee = $('#calc-rail-marquee');
             $marquee.animate({ scrollLeft: $marquee.scrollLeft() + 260 }, 300);
         });
 
         // Bind Directory Grid Cards on Dedicated Calculators Page
-        $(document).on('click', '.calc-grid-card', function(e) {
+        $(document).on('click', '.calc-grid-card', function (e) {
             e.preventDefault();
             const targetId = $(this).data('calc-id');
             const targetIdx = parseInt($(this).data('calc-idx'), 10);
@@ -1816,7 +2034,7 @@
 
         // Bind Category Filter Pills on Dedicated Calculators Page
         if ($categoryFilterBar.length) {
-            $categoryFilterBar.find('.calc-category-btn').on('click', function(e) {
+            $categoryFilterBar.find('.calc-category-btn').on('click', function (e) {
                 e.preventDefault();
                 const targetId = $(this).data('calc-id');
                 const targetIdx = calculators.findIndex(c => c.id === targetId);
@@ -2003,10 +2221,10 @@
                     `;
                 } else if (inp.type === "slider") {
                     const formattedInitial = inp.prefix ? (inp.prefix + " " + Math.round(inp.default).toLocaleString('en-IN')) : (inp.default + (inp.suffix || ''));
-                    
+
                     let valBoxHtml = `
                         <div class="calc-input-val-box">
-                            <input type="text" id="val-${inp.id}" value="${formattedInitial}" data-target="${inp.id}" />
+                            <input type="text" id="val-${inp.id}" value="${formattedInitial}" data-target="${inp.id}" autocomplete="off" />
                         </div>
                     `;
 
@@ -2016,10 +2234,10 @@
                         valBoxHtml = `
                             <div class="calc-dual-box-group">
                                 <div class="calc-input-val-box" title="Step-Up Percentage (%)">
-                                    <input type="text" id="val-${inp.id}" value="${formattedInitial}" data-target="${inp.id}" />
+                                    <input type="text" id="val-${inp.id}" value="${formattedInitial}" data-target="${inp.id}" autocomplete="off" />
                                 </div>
                                 <div class="calc-input-val-box calc-input-val-box-alt" title="Step-Up Amount (₹)">
-                                    <input type="text" id="val-${inp.id}-amount" value="₹ ${amountVal.toLocaleString('en-IN')}" data-target="${inp.id}-amount" data-pair="${inp.id}" data-base="${inp.pairBaseId}" />
+                                    <input type="text" id="val-${inp.id}-amount" value="₹ ${amountVal.toLocaleString('en-IN')}" data-target="${inp.id}-amount" data-pair="${inp.id}" data-base="${inp.pairBaseId}" autocomplete="off" />
                                 </div>
                             </div>
                         `;
@@ -2028,17 +2246,8 @@
                     inputsHtml += `
                         <div class="calc-input-group" data-input-id="${inp.id}">
                             <div class="calc-input-header">
-                                <label class="calc-input-label" for="inp-${inp.id}">${inp.label}</label>
+                                <label class="calc-input-label" for="val-${inp.id}">${inp.label}</label>
                                 ${valBoxHtml}
-                            </div>
-                            <div class="calc-slider-wrapper">
-                                <input type="range" class="calc-range-slider" id="inp-${inp.id}"
-                                    min="${inp.min}" max="${inp.max}" step="${inp.step}" value="${inp.default}" data-input-id="${inp.id}" />
-                                <div class="calc-slider-meta">
-                                    <span>${inp.prefix || ''}${inp.min.toLocaleString('en-IN')}${inp.suffix || ''}</span>
-                                    <span>${inp.helper || ''}</span>
-                                    <span>${inp.prefix || ''}${inp.max.toLocaleString('en-IN')}${inp.suffix || ''}</span>
-                                </div>
                             </div>
                         </div>
                     `;
@@ -2074,60 +2283,44 @@
             }
         }
 
-        // Bind interactive events on inputs and sliders
+        // Bind interactive events on inputs (No sliders, Limit-free entry)
         function bindInputEvents(calc) {
-            // Slider drag / input
-            $inputsWrapper.find('.calc-range-slider').on('input change', function() {
-                const inputId = $(this).data('input-id');
-                const rawVal = parseFloat($(this).val());
-                currentInputValues[inputId] = rawVal;
-
-                const conf = calc.inputs.find(i => i.id === inputId);
-                if (conf) {
-                    const formatted = conf.prefix ? (conf.prefix + " " + Math.round(rawVal).toLocaleString('en-IN')) : (rawVal + (conf.suffix || ''));
-                    $(`#val-${inputId}`).val(formatted);
-
-                    if (conf.hasAmountPair) {
-                        const baseVal = parseNum(currentInputValues[conf.pairBaseId] || 15000);
-                        const calculatedAmount = Math.round((baseVal * rawVal) / 100);
-                        $(`#val-${inputId}-amount`).val('₹ ' + calculatedAmount.toLocaleString('en-IN'));
-                    }
+            // Focus: Select all text and strip formatting so typing is effortless
+            $inputsWrapper.find('.calc-input-val-box input').on('focus', function () {
+                const raw = parseNum($(this).val());
+                if (raw > 0) {
+                    $(this).val(raw);
                 }
-
-                // If this input is the base for another input (e.g. startingSip for annualStepUp)
-                calc.inputs.forEach(otherInp => {
-                    if (otherInp.hasAmountPair && otherInp.pairBaseId === inputId) {
-                        const currentPct = parseNum(currentInputValues[otherInp.id] || otherInp.default);
-                        const calculatedAmount = Math.round((rawVal * currentPct) / 100);
-                        $(`#val-${otherInp.id}-amount`).val('₹ ' + calculatedAmount.toLocaleString('en-IN'));
-                    }
-                });
-
-                updateCalculation();
+                $(this).select();
             });
 
-            // Editable standard text box change
-            $inputsWrapper.find('.calc-input-val-box input:not([data-pair])').on('change', function() {
+            // Enter key: triggers blur to format value
+            $inputsWrapper.find('.calc-input-val-box input').on('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    $(this).trigger('blur');
+                }
+            });
+
+            // Standard input typing (Dynamic real-time calculation, NO max limit constraint)
+            $inputsWrapper.find('.calc-input-val-box input:not([data-pair])').on('input', function () {
                 const inputId = $(this).data('target');
                 const parsed = parseNum($(this).val());
                 const conf = calc.inputs.find(i => i.id === inputId);
                 if (conf) {
-                    const clamped = Math.max(conf.min, Math.min(conf.max, parsed));
-                    currentInputValues[inputId] = clamped;
-                    $(`#inp-${inputId}`).val(clamped);
-                    const formatted = conf.prefix ? (conf.prefix + " " + Math.round(clamped).toLocaleString('en-IN')) : (clamped + (conf.suffix || ''));
-                    $(this).val(formatted);
+                    // Limit-free: no upper max clamp! Allow entering any amount.
+                    const val = (isNaN(parsed) || parsed < 0) ? 0 : parsed;
+                    currentInputValues[inputId] = val;
 
                     if (conf.hasAmountPair) {
                         const baseVal = parseNum(currentInputValues[conf.pairBaseId] || 15000);
-                        const calculatedAmount = Math.round((baseVal * clamped) / 100);
+                        const calculatedAmount = Math.round((baseVal * val) / 100);
                         $(`#val-${inputId}-amount`).val('₹ ' + calculatedAmount.toLocaleString('en-IN'));
                     }
 
                     calc.inputs.forEach(otherInp => {
                         if (otherInp.hasAmountPair && otherInp.pairBaseId === inputId) {
                             const currentPct = parseNum(currentInputValues[otherInp.id] || otherInp.default);
-                            const calculatedAmount = Math.round((clamped * currentPct) / 100);
+                            const calculatedAmount = Math.round((val * currentPct) / 100);
                             $(`#val-${otherInp.id}-amount`).val('₹ ' + calculatedAmount.toLocaleString('en-IN'));
                         }
                     });
@@ -2136,33 +2329,47 @@
                 }
             });
 
-            // Dual paired amount input change (e.g. user enters 5000 into amount box)
-            $inputsWrapper.find('.calc-input-val-box input[data-pair]').on('change', function() {
+            // On blur / change: format the input cleanly with currency / unit
+            $inputsWrapper.find('.calc-input-val-box input:not([data-pair])').on('blur change', function () {
+                const inputId = $(this).data('target');
+                const parsed = parseNum($(this).val());
+                const conf = calc.inputs.find(i => i.id === inputId);
+                if (conf) {
+                    const val = (isNaN(parsed) || parsed < 0) ? 0 : parsed;
+                    currentInputValues[inputId] = val;
+                    const formatted = conf.prefix ? (conf.prefix + " " + Math.round(val).toLocaleString('en-IN')) : (val + (conf.suffix || ''));
+                    $(this).val(formatted);
+                    updateCalculation();
+                }
+            });
+
+            // Dual paired amount input (e.g. user enters custom Step-Up ₹ amount - Limit-Free)
+            $inputsWrapper.find('.calc-input-val-box input[data-pair]').on('input', function () {
                 const pairId = $(this).data('pair');
                 const baseId = $(this).data('base');
                 const enteredAmount = parseNum($(this).val());
                 const baseVal = parseNum(currentInputValues[baseId] || 15000);
 
                 if (baseVal > 0) {
-                    let calculatedPct = Math.round(((enteredAmount / baseVal) * 100) * 10) / 10;
+                    const calculatedPct = Math.round(((enteredAmount / baseVal) * 100) * 10) / 10;
                     const conf = calc.inputs.find(i => i.id === pairId);
                     if (conf) {
-                        if (calculatedPct > conf.max) {
-                            conf.max = Math.ceil(calculatedPct / 10) * 10;
-                            $(`#inp-${pairId}`).attr('max', conf.max);
-                        }
-                        const clampedPct = Math.max(conf.min, Math.min(conf.max, calculatedPct));
-                        currentInputValues[pairId] = clampedPct;
-                        $(`#inp-${pairId}`).val(clampedPct);
-                        $(`#val-${pairId}`).val(clampedPct + (conf.suffix || '%'));
-                        $(this).val('₹ ' + Math.round(enteredAmount).toLocaleString('en-IN'));
+                        const validPct = Math.max(0, calculatedPct);
+                        currentInputValues[pairId] = validPct;
+                        $(`#val-${pairId}`).val(validPct + (conf.suffix || '%'));
                         updateCalculation();
                     }
                 }
             });
 
+            $inputsWrapper.find('.calc-input-val-box input[data-pair]').on('blur change', function () {
+                const enteredAmount = parseNum($(this).val());
+                const validAmount = (isNaN(enteredAmount) || enteredAmount < 0) ? 0 : enteredAmount;
+                $(this).val('₹ ' + Math.round(validAmount).toLocaleString('en-IN'));
+            });
+
             // Dropdown select change
-            $inputsWrapper.find('.calc-goal-dropdown').on('change', function() {
+            $inputsWrapper.find('.calc-goal-dropdown').on('change', function () {
                 const group = $(this).data('group');
                 const val = $(this).val();
                 currentInputValues[group] = val;
@@ -2194,6 +2401,20 @@
             });
             $secondaryMetrics.html(secHtml);
 
+            // Update Dynamic Alert / Depletion Banner
+            if ($calcAlertBanner && $calcAlertBanner.length) {
+                if (res.alert) {
+                    const iconClass = res.alert.type === 'warning' ? 'fa-exclamation-triangle' : 'fa-check-circle';
+                    $calcAlertBanner
+                        .removeClass('d-none calc-alert-warning calc-alert-success')
+                        .addClass('calc-alert-' + res.alert.type)
+                        .html(`<i class="fa ${iconClass} me-2"></i><span>${res.alert.text}</span>`)
+                        .show();
+                } else {
+                    $calcAlertBanner.addClass('d-none').hide();
+                }
+            }
+
             // Update Floating Milestone Badge Overlay on Chart
             if ($chartOverlayVal.length && res.secondary.length > 0) {
                 $chartOverlayVal.text(res.secondary[0].val);
@@ -2220,7 +2441,7 @@
         }
 
         // Handle window resize for canvas redraw
-        $(window).on('resize', function() {
+        $(window).on('resize', function () {
             updateCalculation();
         });
 
@@ -2229,9 +2450,54 @@
         renderActiveCalculator(false);
 
         // Prevent unintentional page reloads on static forms
-        $('form').on('submit', function(e) {
+        $('form').on('submit', function (e) {
             e.preventDefault();
         });
     })();
+
+    // Navbar Login Dropdown Interaction (Click only)
+    $(document).on('click', '#navLoginDropdown, .btn-nav-login', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const $dropdown = $(this).closest('.nav-login-dropdown');
+        const $menu = $dropdown.find('.nav-login-menu');
+        const isOpen = $dropdown.hasClass('show') || $menu.hasClass('show');
+
+        // Close all nav login menus
+        $('.nav-login-dropdown').removeClass('show');
+        $('.nav-login-menu').removeClass('show');
+        $('.btn-nav-login').attr('aria-expanded', 'false');
+
+        if (!isOpen) {
+            $dropdown.addClass('show');
+            $menu.addClass('show');
+            $(this).attr('aria-expanded', 'true');
+        }
+    });
+
+    // Close when clicking outside
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('.nav-login-dropdown').length) {
+            $('.nav-login-dropdown').removeClass('show');
+            $('.nav-login-menu').removeClass('show');
+            $('.btn-nav-login').attr('aria-expanded', 'false');
+        }
+    });
+
+    // Close when clicking an item inside dropdown
+    $(document).on('click', '.nav-login-menu .dropdown-item', function () {
+        $('.nav-login-dropdown').removeClass('show');
+        $('.nav-login-menu').removeClass('show');
+        $('.btn-nav-login').attr('aria-expanded', 'false');
+    });
+
+    // Close on Escape key
+    $(document).on('keydown', function (e) {
+        if (e.key === 'Escape') {
+            $('.nav-login-dropdown').removeClass('show');
+            $('.nav-login-menu').removeClass('show');
+            $('.btn-nav-login').attr('aria-expanded', 'false');
+        }
+    });
 
 })(jQuery);
