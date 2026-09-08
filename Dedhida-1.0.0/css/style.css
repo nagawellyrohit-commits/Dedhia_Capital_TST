@@ -378,9 +378,23 @@ h5,
     transform: none;
 }
 
+.fixed-top,
+.container-fluid.fixed-top {
+    z-index: 99999 !important;
+    overflow: visible !important;
+}
+
+.navbar,
+.navbar-collapse,
+.navbar-nav {
+    overflow: visible !important;
+}
+
 /* Navbar Login Dropdown Button & Menu */
 .nav-login-dropdown {
     position: relative !important;
+    overflow: visible !important;
+    z-index: 100000 !important;
 }
 
 .btn-nav-login {
@@ -421,13 +435,13 @@ h5,
     top: calc(100% + 6px) !important;
     right: 0 !important;
     left: auto !important;
-    min-width: 215px !important;
+    min-width: 220px !important;
     width: max-content !important;
     background: #FFFFFF !important;
     background-color: #FFFFFF !important;
     border-radius: 8px !important;
     border: 1px solid #E2E8F0 !important;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.15) !important;
     padding: 8px 0 !important;
     margin: 0 !important;
     list-style: none !important;
@@ -435,19 +449,21 @@ h5,
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
-    z-index: 99999 !important;
+    z-index: 100001 !important;
     transition: opacity 0.15s ease, visibility 0.15s ease !important;
 }
 
 .nav-login-menu.show,
 .nav-login-dropdown.show .nav-login-menu,
 .nav-login-dropdown .nav-login-menu.show,
-.navbar .nav-login-dropdown .dropdown-menu.show {
+.navbar .nav-login-dropdown .dropdown-menu.show,
+.navbar .nav-login-dropdown.show .dropdown-menu {
     display: block !important;
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
     transform: none !important;
+    z-index: 100001 !important;
 }
 
 .nav-login-menu li {
@@ -480,6 +496,15 @@ h5,
     text-align: center !important;
     flex-shrink: 0 !important;
     transition: color 0.15s ease !important;
+}
+
+.nav-login-menu .dropdown-item .login-brand-icon {
+    width: 22px !important;
+    height: 22px !important;
+    border-radius: 5px !important;
+    object-fit: contain !important;
+    flex-shrink: 0 !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
 }
 
 .nav-login-menu .dropdown-item:hover,
@@ -5332,4 +5357,114 @@ img {
         padding: 4px 10px;
         font-size: 0.72rem;
     }
+}
+
+/* =======================================================
+   HOME SCREEN LUXURY TESTIMONIAL CARDS
+   ======================================================= */
+.home-testimonial-card {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(201, 149, 75, 0.25) !important;
+    border-radius: 20px !important;
+    padding: 2.25rem 2rem !important;
+    box-shadow: 0 12px 35px rgba(11, 22, 40, 0.06) !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.home-testimonial-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(201, 149, 75, 0.5) !important;
+    box-shadow: 0 20px 45px rgba(11, 22, 40, 0.12) !important;
+}
+
+.testimonial-watermark-quote {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    font-size: 2.5rem;
+    color: rgba(201, 149, 75, 0.15);
+    line-height: 1;
+    pointer-events: none;
+    transition: color 0.3s ease;
+}
+
+.home-testimonial-card:hover .testimonial-watermark-quote {
+    color: rgba(201, 149, 75, 0.3);
+}
+
+.testimonial-avatar-wrap {
+    width: 100px !important;
+    height: 100px !important;
+    min-width: 100px !important;
+    min-height: 100px !important;
+    border-radius: 50% !important;
+    padding: 3px !important;
+    background: linear-gradient(135deg, #C9954B 0%, rgba(201, 149, 75, 0.3) 100%) !important;
+    box-shadow: 0 6px 18px rgba(11, 22, 40, 0.12) !important;
+    display: inline-block !important;
+}
+
+.testimonial-avatar-img {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    display: block !important;
+    background: #F1F5F9 !important;
+}
+
+.testimonial-client-name {
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
+    color: #0B1628 !important;
+    margin-bottom: 0 !important;
+}
+
+.testimonial-verified-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    font-size: 0.72rem !important;
+    font-weight: 600 !important;
+    color: #0F766E !important;
+    background: rgba(20, 184, 166, 0.1) !important;
+    padding: 3px 9px !important;
+    border-radius: 999px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.testimonial-rating-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-top: 8px !important;
+    margin-bottom: 14px !important;
+}
+
+.testimonial-stars-wrap {
+    color: #F59E0B !important;
+    font-size: 1rem !important;
+    letter-spacing: 2px !important;
+}
+
+.testimonial-score-pill {
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    color: #0B1628 !important;
+    background: rgba(201, 149, 75, 0.15) !important;
+    border: 1px solid rgba(201, 149, 75, 0.35) !important;
+    padding: 2px 8px !important;
+    border-radius: 6px !important;
+    line-height: 1.2 !important;
+}
+
+.testimonial-feedback-text {
+    color: #374151 !important;
+    font-size: 0.96rem !important;
+    line-height: 1.8 !important;
+    font-style: italic !important;
+    margin-bottom: 0 !important;
 }
