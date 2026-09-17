@@ -278,129 +278,180 @@
     </section>
     <!-- Our Framework Section End -->
 
-    <!-- Goal-Based Services Section (Serpentine Roadmap) Start -->
-    <div class="container-fluid py-5 position-relative px-0" id="services">
-        <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-                <p class="d-inline-block border rounded text-primary fw-semi-bold py-1 px-3">Goal-Based Services</p>
-                <h1 class="display-5 mb-4 font-serif">Comprehensive Solutions for Every Milestone</h1>
-                <p class="text-muted">
-                    From core wealth creation to global diversification, tax planning, and generational succession, we
-                    align your portfolio with your distinct life roadmap.
-                </p>
+    <!-- Goal-Based Services Section (Custom Tree Layout) Start -->
+    <section class="container-fluid py-2 px-0" id="services">
+        <!-- Goal-Based Services Section (Custom Tree Layout) Start -->
+    <section class="container-fluid py-2 px-0" id="services">
+        <style>
+            .tree-layout-wrapper {
+                width: 100%;
+                max-width: 1200px;
+                aspect-ratio: 1484 / 1060;
+                margin: 0 auto;
+                position: relative;
+            }
+            .tree-card-node {
+                position: absolute;
+                z-index: 10;
+                width: 28%;
+                transition: transform 0.3s ease;
+            }
+            .tree-card-node:hover {
+                transform: translateY(-5px);
+            }
+            .tree-card {
+                border-radius: 8px;
+                background: #fff;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+                position: relative;
+                border: 1px solid rgba(0,0,0,0.05);
+            }
+            .tree-card-header {
+                color: #fff;
+                padding: clamp(4px, 1vw, 10px) clamp(5px, 1vw, 15px);
+                font-size: clamp(7px, 1.2vw, 14px);
+                font-weight: 600;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+            }
+            .tree-card-body {
+                padding: clamp(4px, 1vw, 12px) clamp(5px, 1vw, 15px);
+                font-size: clamp(6px, 1.1vw, 13px);
+                color: #555;
+                line-height: 1.2;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+            }
+            .tree-badge {
+                position: absolute;
+                width: clamp(18px, 2.5vw, 26px);
+                height: clamp(18px, 2.5vw, 26px);
+                border-radius: 50%;
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                font-size: clamp(8px, 1.2vw, 12px);
+                border: 2px solid #fff;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                z-index: 12;
+            }
+            .tree-btn-explore {
+                border: 1px solid #8C5B19;
+                color: #8C5B19;
+                font-weight: 700;
+                text-transform: uppercase;
+                text-decoration: none;
+                border-radius: 50px;
+                padding: clamp(2px, 0.5vw, 8px) clamp(4px, 1vw, 16px);
+                background: transparent;
+                transition: all 0.3s ease;
+                display: inline-block;
+                width: 100%;
+                text-align: center;
+                font-size: clamp(6px, 1vw, 13px);
+            }
+            .tree-btn-explore:hover {
+                background: #8C5B19;
+                color: #fff;
+            }
+        </style>
+
+        <div class="container text-center mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+            <p class="d-inline-block border rounded text-primary fw-semi-bold py-1 px-3 mt-4">Goal-Based Services</p>
+            <h1 class="display-5 mb-4 font-serif">Comprehensive Solutions for Every Milestone</h1>
+        </div>
+
+        <!-- Unified Tree Layout (Scrollable on Mobile) -->
+        <div style="width: 100%; overflow-x: auto; padding-bottom: 20px;">
+            <div class="tree-layout-wrapper mb-5 wow fadeIn" data-wow-delay="0.2s">
+            <img src="img/tree.png" alt="Growth Tree" class="w-100 h-100 position-absolute" style="top: 0; left: 0; object-fit: contain; mix-blend-mode: multiply; opacity: 1;">
+            
+            <!-- Master SVG Overlay for Perfect Responsive Pointer Lines -->
+            <svg class="position-absolute w-100 h-100" style="top: 0; left: 0; z-index: 5; pointer-events: none;" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <!-- Line 1: Mutual Fund -->
+                <line x1="62" y1="12" x2="56" y2="18" stroke="#022672" stroke-width="0.3" />
+                <circle cx="56" cy="18" r="0.8" fill="#022672" stroke="#fff" stroke-width="0.2" />
+                
+                <!-- Line 2: SIFs -->
+                <line x1="30" y1="20" x2="35" y2="19" stroke="#9d7741" stroke-width="0.3" />
+                <circle cx="35" cy="19" r="0.8" fill="#9d7741" stroke="#fff" stroke-width="0.2" />
+
+                <!-- Line 3: PMS -->
+                <line x1="70" y1="30" x2="56" y2="38" stroke="#0F766E" stroke-width="0.3" />
+                <circle cx="56" cy="38" r="0.8" fill="#0F766E" stroke="#fff" stroke-width="0.2" />
+
+                <!-- Line 4: Insurance -->
+                <line x1="27" y1="53" x2="35" y2="52" stroke="#16A34A" stroke-width="0.3" />
+                <circle cx="35" cy="52" r="0.8" fill="#16A34A" stroke="#fff" stroke-width="0.2" />
+
+                <!-- Line 5: Explore -->
+                <line x1="72" y1="56" x2="62" y2="49" stroke="#8B5CF6" stroke-width="0.3" />
+                <circle cx="62" cy="49" r="0.8" fill="#8B5CF6" stroke="#fff" stroke-width="0.2" />
+            </svg>
+
+            <!-- Card 1: Mutual Funds -->
+            <div class="tree-card-node" style="top: calc(12% - 13px); left: 62%;">
+                <div class="tree-card">
+                    <div class="tree-card-header d-flex align-items-center" style="background-color: #022672;">
+                        <i class="fa fa-chart-line me-2"></i> Mutual Fund (MF)
+                    </div>
+                    <div class="tree-card-body">Core liquid assets, regulated mutual funds, and guaranteed returns.</div>
+                    <div class="tree-badge" style="background-color: #022672; left: -5%; top: 10%;">1</div>
+                </div>
             </div>
 
-            <!-- Serpentine Roadmap Diagram for 5 Service Categories -->
-            <div class="milestone-roadmap-wrapper wow fadeInUp" data-wow-delay="0.2s">
-                <!-- SVG Serpentine Track for Desktop -->
-                <svg class="roadmap-spine-svg" fill="none" preserveAspectRatio="none" viewBox="0 0 160 1000"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="progressGradient" x1="0%" x2="100%" y1="0%" y2="0%">
-                            <stop offset="0%" stop-color="#F6D29F"></stop>
-                            <stop offset="45%" stop-color="#D4A054"></stop>
-                            <stop offset="100%" stop-color="#B77B3C"></stop>
-                        </linearGradient>
-                    </defs>
-                    <!-- Top terminal dot -->
-                    <circle cx="30" cy="20" fill="#0B1628" r="5"></circle>
-                    <!-- Serpentine Path connecting 5 nodes: 1(R), 2(L), 3(R), 4(L), 5(R) -->
-                    <path class="roadmap-track-base" d="M 30 20
-                             C 75 20, 130 35, 130 110
-                             C 130 220, 30 220, 30 350
-                             C 30 480, 130 480, 130 610
-                             C 130 740, 30 740, 30 870
-                             C 30 940, 75 980, 130 980" fill="none" stroke="#0B1628" stroke-linecap="round"
-                        stroke-width="3" vector-effect="non-scaling-stroke"></path>
-                    <path class="roadmap-track-progress" d="M 30 20
-                             C 75 20, 130 35, 130 110
-                             C 130 220, 30 220, 30 350
-                             C 30 480, 130 480, 130 610
-                             C 130 740, 30 740, 30 870
-                             C 30 940, 75 980, 130 980" fill="none" stroke="url(#progressGradient)"
-                        stroke-linecap="round" stroke-width="4" vector-effect="non-scaling-stroke"></path>
-                    <!-- Bottom terminal dot -->
-                    <circle cx="130" cy="980" fill="#0B1628" r="5"></circle>
-                </svg>
-
-                <!-- Step 1: Traditional & Regulated Investments (Right) -->
-                <div class="roadmap-step step-right">
-                    <div class="roadmap-node">1</div>
-                    <div class="roadmap-card">
-                        <div class="roadmap-card-header header-traditional">
-                            <i class="fa fa-chart-line me-2"></i> Mutual Fund (MF)
-                        </div>
-                        <div class="roadmap-card-body">
-                            <p class="text-muted small mb-2 fw-semi-bold">Core liquid assets, regulated mutual funds,
-                                and guaranteed returns.</p>
-
-                        </div>
+            <!-- Card 2: SIFs -->
+            <div class="tree-card-node" style="top: calc(20% - 13px); right: 70%;">
+                <div class="tree-card">
+                    <div class="tree-card-header d-flex align-items-center" style="background-color: #9d7741;">
+                        <i class="fa fa-pie-chart me-2"></i> Specialized Investment Funds (SIFs)
                     </div>
-                </div>
-
-                <!-- Step 2: Alternative & Global Investments (Left) -->
-                <div class="roadmap-step step-left">
-                    <div class="roadmap-node">2</div>
-                    <div class="roadmap-card">
-                        <div class="roadmap-card-header header-alternative">
-                            <i class="fa fa-globe-asia me-2"></i> Specialized Investment Funds (SIFs)
-                        </div>
-                        <div class="roadmap-card-body">
-                            <p class="text-muted small mb-2 fw-semi-bold">High-alpha opportunities, private markets, and
-                                cross-border corridors.</p>
-
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 3: Wealth Planning (Right) -->
-                <div class="roadmap-step step-right">
-                    <div class="roadmap-node">3</div>
-                    <div class="roadmap-card">
-                        <div class="roadmap-card-header header-wealth">
-                            <i class="fa fa-chess-queen me-2"></i> Portfolio Management Services (PMS)
-                        </div>
-                        <div class="roadmap-card-body">
-                            <p class="text-muted small mb-2 fw-semi-bold">Holistic diagnostic audits, governance, and
-                                retirement roadmaps.</p>
-
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 4: Protection Solutions (Left) -->
-                <div class="roadmap-step step-left">
-                    <div class="roadmap-node">4</div>
-                    <div class="roadmap-card">
-                        <div class="roadmap-card-header header-protection">
-                            <i class="fa fa-shield-alt me-2"></i> Insurance
-                        </div>
-                        <div class="roadmap-card-body">
-                            <p class="text-muted small mb-2 fw-semi-bold">Safeguarding life, health, and family wealth
-                                against uncertainties.</p>
-
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 5: Legacy & Business Planning (Right) -->
-                <div class="roadmap-step step-right">
-                    <div class="roadmap-node">5</div>
-                    <div class="roadmap-card">
-                        <div class="roadmap-card-header header-legacy">
-                            <i class="fa fa-sitemap me-2"></i> Explore More service
-                        </div>
-                        <div class="roadmap-card-body">
-                            <a href="service.html" class="btn btn-sm btn-outline-primary rounded-pill">Explore
-                                <i class="fa fa-arrow-right ms-1"></i></a>
-                        </div>
-                    </div>
+                    <div class="tree-card-body">High-alpha opportunities, private markets, and cross-border corridors.</div>
+                    <div class="tree-badge" style="background-color: #9d7741; right: -5%; top: 10%;">2</div>
                 </div>
             </div>
 
+            <!-- Card 3: PMS -->
+            <div class="tree-card-node" style="top: calc(30% - 13px); left: 70%;">
+                <div class="tree-card">
+                    <div class="tree-card-header d-flex align-items-center" style="background-color: #0F766E;">
+                        <i class="fa fa-users me-2"></i> Portfolio Management Services (PMS)
+                    </div>
+                    <div class="tree-card-body">Holistic diagnostic audits, governance, and retirement roadmaps.</div>
+                    <div class="tree-badge" style="background-color: #0F766E; left: -5%; top: 10%;">3</div>
+                </div>
+            </div>
+
+            <!-- Card 4: Insurance -->
+            <div class="tree-card-node" style="top: calc(53% - 13px); right: 73%;">
+                <div class="tree-card">
+                    <div class="tree-card-header d-flex align-items-center" style="background-color: #16A34A;">
+                        <i class="fa fa-shield-alt me-2"></i> Insurance
+                    </div>
+                    <div class="tree-card-body">Safeguarding life, health, and family wealth against uncertainties.</div>
+                    <div class="tree-badge" style="background-color: #16A34A; right: -5%; top: 10%;">4</div>
+                </div>
+            </div>
+
+            <!-- Card 5: Explore -->
+            <div class="tree-card-node" style="top: calc(56% - 13px); left: 72%;">
+                <div class="tree-card">
+                    <div class="tree-card-header d-flex align-items-center" style="background-color: #8B5CF6;">
+                        <i class="fa fa-sitemap me-2"></i> Explore More service
+                    </div>
+                    <div class="tree-card-body text-center" style="background: linear-gradient(135deg, #FBE2A4, #D4A054);">
+                        <a href="service.html" class="tree-btn-explore">EXPLORE <i class="fa fa-arrow-right ms-1"></i></a>
+                    </div>
+                    <div class="tree-badge" style="background-color: #8B5CF6; left: -5%; top: 10%;">5</div>
+                </div>
+            </div>
+        </div>
 
         </div>
-    </div>
+
+        </section>
     <!-- Goal-Based Services Section End -->
 
     <!-- Explore Your Financial Possibilities (Interactive Financial Calculators) Start -->
@@ -465,7 +516,7 @@
                 <p class="d-inline-block border border-gold-subtle rounded text-gold fw-semi-bold py-1 px-3 mb-2 font-sans letter-spacing-1 text-uppercase small"
                     style="background: rgba(201, 149, 75, 0.08); border-color: rgba(201, 149, 75, 0.35) !important;">
                     Client Testimonials</p>
-                <h1 class="display-5 mb-4 font-serif" style="color: #0B1628;">What Our Clients Say</h1>
+                <h1 class="display-5 mb-4 font-serif" style="color: #022672;">What Our Clients Say</h1>
                 <button class="btn btn-primary rounded-pill px-4 py-2 shadow-sm mb-5" data-bs-toggle="modal" data-bs-target="#addTestimonialModal">
                     <i class="fa fa-plus me-2"></i>Add Review
                 </button>
@@ -474,7 +525,7 @@
                 <!-- Testimonial 1 -->
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="home-testimonial-card h-100 d-flex flex-column text-start position-relative"
-                        style="background: #ffffff; border: 1px solid rgba(201, 149, 75, 0.25); border-radius: 20px; padding: 2.25rem 2rem; box-shadow: 0 12px 35px rgba(11, 22, 40, 0.06);">
+                        style="background: #ffffff; border: 1px solid rgba(201, 149, 75, 0.25); border-radius: 20px; padding: 2.25rem 2rem; box-shadow: 0 12px 35px rgba(2, 38, 114, 0.06);">
                         <div class="testimonial-watermark-quote"
                             style="position: absolute; top: 20px; right: 24px; font-size: 2.5rem; color: rgba(201, 149, 75, 0.15); pointer-events: none;">
                             <i class="fas fa-quote-right"></i>
@@ -482,7 +533,7 @@
                         <!-- 1. Image (Uniform Size: 100px x 100px) -->
                         <div class="mb-3">
                             <div class="testimonial-avatar-wrap"
-                                style="width: 100px; height: 100px; min-width: 100px; min-height: 100px; border-radius: 50%; padding: 3px; background: linear-gradient(135deg, #C9954B 0%, rgba(201, 149, 75, 0.3) 100%); box-shadow: 0 6px 18px rgba(11, 22, 40, 0.12); display: inline-block;">
+                                style="width: 100px; height: 100px; min-width: 100px; min-height: 100px; border-radius: 50%; padding: 3px; background: linear-gradient(135deg, #C9954B 0%, rgba(201, 149, 75, 0.3) 100%); box-shadow: 0 6px 18px rgba(2, 38, 114, 0.12); display: inline-block;">
                                 <img class="testimonial-avatar-img" src="img/vivek-bhavsar.jpg" alt="Vivek Bhavsar"
                                     id="testimonial-img-1"
                                     style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; background: #f1f5f9;">
@@ -491,7 +542,7 @@
                         <!-- 2. Name & Verified Badge -->
                         <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
                             <h5 class="testimonial-client-name font-serif mb-0" id="testimonial-name-1"
-                                style="font-size: 1.3rem; font-weight: 700; color: #0B1628;">Vivek Bhavsar</h5>
+                                style="font-size: 1.3rem; font-weight: 700; color: #022672;">Vivek Bhavsar</h5>
                             <span class="testimonial-verified-badge"
                                 style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.72rem; font-weight: 600; color: #0F766E; background: rgba(20, 184, 166, 0.1); padding: 3px 9px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.5px;"><i
                                     class="fas fa-check-circle"></i> Verified</span>
@@ -507,7 +558,7 @@
                                 <i class="fas fa-star"></i>
                             </div>
                             <span class="testimonial-score-pill"
-                                style="font-size: 0.82rem; font-weight: 700; color: #0B1628; background: rgba(201, 149, 75, 0.15); border: 1px solid rgba(201, 149, 75, 0.35); padding: 2px 8px; border-radius: 6px; line-height: 1.2;">5.0</span>
+                                style="font-size: 0.82rem; font-weight: 700; color: #022672; background: rgba(201, 149, 75, 0.15); border: 1px solid rgba(201, 149, 75, 0.35); padding: 2px 8px; border-radius: 6px; line-height: 1.2;">5.0</span>
                         </div>
                         <!-- 4. Description Quote -->
                         <p class="testimonial-feedback-text mt-auto mb-0" id="testimonial-quote-1"
@@ -523,7 +574,7 @@
                 <!-- Testimonial 2 -->
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
                     <div class="home-testimonial-card h-100 d-flex flex-column text-start position-relative"
-                        style="background: #ffffff; border: 1px solid rgba(201, 149, 75, 0.25); border-radius: 20px; padding: 2.25rem 2rem; box-shadow: 0 12px 35px rgba(11, 22, 40, 0.06);">
+                        style="background: #ffffff; border: 1px solid rgba(201, 149, 75, 0.25); border-radius: 20px; padding: 2.25rem 2rem; box-shadow: 0 12px 35px rgba(2, 38, 114, 0.06);">
                         <div class="testimonial-watermark-quote"
                             style="position: absolute; top: 20px; right: 24px; font-size: 2.5rem; color: rgba(201, 149, 75, 0.15); pointer-events: none;">
                             <i class="fas fa-quote-right"></i>
@@ -531,7 +582,7 @@
                         <!-- 1. Image (Uniform Size: 100px x 100px) -->
                         <div class="mb-3">
                             <div class="testimonial-avatar-wrap"
-                                style="width: 100px; height: 100px; min-width: 100px; min-height: 100px; border-radius: 50%; padding: 3px; background: linear-gradient(135deg, #C9954B 0%, rgba(201, 149, 75, 0.3) 100%); box-shadow: 0 6px 18px rgba(11, 22, 40, 0.12); display: inline-block;">
+                                style="width: 100px; height: 100px; min-width: 100px; min-height: 100px; border-radius: 50%; padding: 3px; background: linear-gradient(135deg, #C9954B 0%, rgba(201, 149, 75, 0.3) 100%); box-shadow: 0 6px 18px rgba(2, 38, 114, 0.12); display: inline-block;">
                                 <img class="testimonial-avatar-img" src="img/anuja-kulkarni.jpg" alt="Anuja Kulkarni"
                                     id="testimonial-img-2"
                                     style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; background: #f1f5f9;">
@@ -540,7 +591,7 @@
                         <!-- 2. Name & Verified Badge -->
                         <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
                             <h5 class="testimonial-client-name font-serif mb-0" id="testimonial-name-2"
-                                style="font-size: 1.3rem; font-weight: 700; color: #0B1628;">Anuja Kulkarni</h5>
+                                style="font-size: 1.3rem; font-weight: 700; color: #022672;">Anuja Kulkarni</h5>
                             <span class="testimonial-verified-badge"
                                 style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.72rem; font-weight: 600; color: #0F766E; background: rgba(20, 184, 166, 0.1); padding: 3px 9px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.5px;"><i
                                     class="fas fa-check-circle"></i> Verified</span>
@@ -556,7 +607,7 @@
                                 <i class="fas fa-star-half-alt"></i>
                             </div>
                             <span class="testimonial-score-pill"
-                                style="font-size: 0.82rem; font-weight: 700; color: #0B1628; background: rgba(201, 149, 75, 0.15); border: 1px solid rgba(201, 149, 75, 0.35); padding: 2px 8px; border-radius: 6px; line-height: 1.2;">4.6</span>
+                                style="font-size: 0.82rem; font-weight: 700; color: #022672; background: rgba(201, 149, 75, 0.15); border: 1px solid rgba(201, 149, 75, 0.35); padding: 2px 8px; border-radius: 6px; line-height: 1.2;">4.6</span>
                         </div>
                         <!-- 4. Description Quote -->
                         <p class="testimonial-feedback-text mt-auto mb-0" id="testimonial-quote-2"
@@ -570,7 +621,7 @@
                 <!-- Testimonial 3 -->
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="home-testimonial-card h-100 d-flex flex-column text-start position-relative"
-                        style="background: #ffffff; border: 1px solid rgba(201, 149, 75, 0.25); border-radius: 20px; padding: 2.25rem 2rem; box-shadow: 0 12px 35px rgba(11, 22, 40, 0.06);">
+                        style="background: #ffffff; border: 1px solid rgba(201, 149, 75, 0.25); border-radius: 20px; padding: 2.25rem 2rem; box-shadow: 0 12px 35px rgba(2, 38, 114, 0.06);">
                         <div class="testimonial-watermark-quote"
                             style="position: absolute; top: 20px; right: 24px; font-size: 2.5rem; color: rgba(201, 149, 75, 0.15); pointer-events: none;">
                             <i class="fas fa-quote-right"></i>
@@ -578,7 +629,7 @@
                         <!-- 1. Image (Uniform Size: 100px x 100px) -->
                         <div class="mb-3">
                             <div class="testimonial-avatar-wrap"
-                                style="width: 100px; height: 100px; min-width: 100px; min-height: 100px; border-radius: 50%; padding: 3px; background: linear-gradient(135deg, #C9954B 0%, rgba(201, 149, 75, 0.3) 100%); box-shadow: 0 6px 18px rgba(11, 22, 40, 0.12); display: inline-block;">
+                                style="width: 100px; height: 100px; min-width: 100px; min-height: 100px; border-radius: 50%; padding: 3px; background: linear-gradient(135deg, #C9954B 0%, rgba(201, 149, 75, 0.3) 100%); box-shadow: 0 6px 18px rgba(2, 38, 114, 0.12); display: inline-block;">
                                 <img class="testimonial-avatar-img" src="img/ameya-apte.jpg" alt="Ameya Apte"
                                     id="testimonial-img-3"
                                     style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; background: #f1f5f9;">
@@ -587,7 +638,7 @@
                         <!-- 2. Name & Badge -->
                         <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
                             <h5 class="testimonial-client-name font-serif mb-0" id="testimonial-name-3"
-                                style="font-size: 1.3rem; font-weight: 700; color: #0B1628;">Ameya Apte</h5>
+                                style="font-size: 1.3rem; font-weight: 700; color: #022672;">Ameya Apte</h5>
                             <span class="testimonial-verified-badge"
                                 style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.72rem; font-weight: 600; color: #0F766E; background: rgba(20, 184, 166, 0.1); padding: 3px 9px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.5px;"><i
                                     class="fas fa-check-circle"></i> Verified</span>
@@ -603,7 +654,7 @@
                                 <i class="fas fa-star-half-alt"></i>
                             </div>
                             <span class="testimonial-score-pill"
-                                style="font-size: 0.82rem; font-weight: 700; color: #0B1628; background: rgba(201, 149, 75, 0.15); border: 1px solid rgba(201, 149, 75, 0.35); padding: 2px 8px; border-radius: 6px; line-height: 1.2;">4.8</span>
+                                style="font-size: 0.82rem; font-weight: 700; color: #022672; background: rgba(201, 149, 75, 0.15); border: 1px solid rgba(201, 149, 75, 0.35); padding: 2px 8px; border-radius: 6px; line-height: 1.2;">4.8</span>
                         </div>
                         <!-- 4. Description Quote -->
                         <p class="testimonial-feedback-text mt-auto mb-0" id="testimonial-quote-3"
@@ -668,7 +719,7 @@
     </div>
     <!-- How We Work Process End -->
     <!-- Callback Consultation Form Start -->
-    <div class="container-fluid callback py-5" style="background: linear-gradient(135deg, #011A41 0%, #032b69 100%);">
+    <div class="container-fluid callback py-5" style="background: linear-gradient(135deg, #022672 0%, #032b69 100%);">
         <div class="container py-4">
             <div class="row justify-content-center">
                 <div class="col-lg-8 wow fadeIn" data-wow-delay="0.1s">
@@ -726,7 +777,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 text-center">
-                                    <button class="btn btn-primary w-100 py-3 rounded-pill fw-bold" type="submit">Submit
+                                    <button class="btn btn-primary w-100 py-3 rounded-pill fw-bold" style="background-color: #022672 !important; border-color: #022672 !important;" type="submit">Submit
                                         Consultation Request</button>
                                 </div>
                             </div>
@@ -852,7 +903,7 @@
                             <label class="form-label">Your Message</label>
                             <textarea class="form-control" id="testimonialMessage" rows="4" required placeholder="Write your experience here..."></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100 rounded-pill">Submit Review</button>
+                        <button type="submit" class="btn btn-primary w-100 rounded-pill" style="background-color: #022672 !important; border-color: #022672 !important;">Submit Review</button>
                     </form>
                 </div>
             </div>
@@ -914,17 +965,17 @@
 
                 const cardHtml = `
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
-                    <div class="home-testimonial-card h-100 d-flex flex-column text-start position-relative" style="background: #ffffff; border: 1px solid rgba(201, 149, 75, 0.25); border-radius: 20px; padding: 2.25rem 2rem; box-shadow: 0 12px 35px rgba(11, 22, 40, 0.06);">
+                    <div class="home-testimonial-card h-100 d-flex flex-column text-start position-relative" style="background: #ffffff; border: 1px solid rgba(201, 149, 75, 0.25); border-radius: 20px; padding: 2.25rem 2rem; box-shadow: 0 12px 35px rgba(2, 38, 114, 0.06);">
                         <div class="testimonial-watermark-quote" style="position: absolute; top: 20px; right: 24px; font-size: 2.5rem; color: rgba(201, 149, 75, 0.15); pointer-events: none;">
                             <i class="fas fa-quote-right"></i>
                         </div>
                         <div class="mb-3">
-                            <div class="testimonial-avatar-wrap" style="width: 100px; height: 100px; border-radius: 50%; padding: 4px; background: linear-gradient(135deg, #011A41 0%, rgba(201, 149, 75, 0.8) 100%);">
+                            <div class="testimonial-avatar-wrap" style="width: 100px; height: 100px; border-radius: 50%; padding: 4px; background: linear-gradient(135deg, #022672 0%, rgba(201, 149, 75, 0.8) 100%);">
                                 <img class="testimonial-avatar-img" src="${data.image}" alt="${data.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 3px solid #fff;">
                             </div>
                         </div>
                         <div class="mb-4">
-                            <h5 class="testimonial-client-name font-serif mb-0" style="color: #0B1628; font-weight: 700;">${data.name}</h5>
+                            <h5 class="testimonial-client-name font-serif mb-0" style="color: #022672; font-weight: 700;">${data.name}</h5>
                             <div class="mt-1">
                                 <span class="testimonial-verified-badge" style="display: inline-flex; align-items: center; font-size: 0.75rem; font-weight: 600; color: #166534; background: #DCFCE7; padding: 0.2rem 0.6rem; border-radius: 20px;">
                                     <i class="fas fa-check-circle me-1"></i>Verified Client

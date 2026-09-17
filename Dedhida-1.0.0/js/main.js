@@ -79,43 +79,43 @@
     // Smooth, scroll-driven roadmap progress and milestone reveals.
     function updateRoadmapProgress() {
         var wrapper = document.querySelector('.milestone-roadmap-wrapper');
-        var path = document.querySelector('.roadmap-track-progress');
-        if (!wrapper || !path) return;
-
-        // Ensure dash values match the actual path length for smooth rendering
-        var pathLen = path.getTotalLength();
-        path.style.strokeDasharray = pathLen;
-        // Keep dashoffset synced to length initially if not already set
-        if (!path.style.strokeDashoffset || path.style.strokeDashoffset === '') {
-            path.style.strokeDashoffset = pathLen;
-        }
-        path.style.transition = 'stroke-dashoffset 0.6s cubic-bezier(.16,1,.3,1)';
-
-        // Map scroll position within the wrapper to a 0..1 progress value.
-        var top = wrapper.getBoundingClientRect().top + window.scrollY;
-        var indicator = window.scrollY + window.innerHeight * 0.6; // pointer a little below center
-
-        // Prefer the SVG bottom terminal dot as the endpoint so the stroke reaches the final terminal
-        var svg = wrapper.querySelector('.roadmap-spine-svg');
-        var endPos = top + wrapper.offsetHeight;
-        if (svg) {
-            var circles = svg.querySelectorAll('circle');
-            if (circles && circles.length) {
-                var bottomDot = circles[circles.length - 1];
-                endPos = bottomDot.getBoundingClientRect().top + window.scrollY;
+        // Progress tracking for SVG (only if path exists)
+        var path = document.querySelector(".roadmap-track-progress"); if (!wrapper) return; if (path) {
+            // Ensure dash values match the actual path length for smooth rendering
+            var pathLen = path.getTotalLength();
+            path.style.strokeDasharray = pathLen;
+            // Keep dashoffset synced to length initially if not already set
+            if (!path.style.strokeDashoffset || path.style.strokeDashoffset === '') {
+                path.style.strokeDashoffset = pathLen;
             }
+            path.style.transition = 'stroke-dashoffset 0.6s cubic-bezier(.16,1,.3,1)';
+
+            // Map scroll position within the wrapper to a 0..1 progress value.
+            var top = wrapper.getBoundingClientRect().top + window.scrollY;
+            var indicator = window.scrollY + window.innerHeight * 0.6; // pointer a little below center
+
+            // Prefer the SVG bottom terminal dot as the endpoint so the stroke reaches the final terminal
+            var svg = wrapper.querySelector('.roadmap-spine-svg');
+            var endPos = top + wrapper.offsetHeight;
+            if (svg) {
+                var circles = svg.querySelectorAll('circle');
+                if (circles && circles.length) {
+                    var bottomDot = circles[circles.length - 1];
+                    endPos = bottomDot.getBoundingClientRect().top + window.scrollY;
+                }
+            }
+
+            var frac = (indicator - top) / (endPos - top);
+            frac = Math.max(0, Math.min(1, frac));
+
+            // If the indicator is very close to the endpoint, snap to fully complete to avoid a visible gap
+            var snapThreshold = Math.min(160, Math.max(40, Math.floor(window.innerHeight * 0.15)));
+            if (indicator + snapThreshold >= endPos) frac = 1;
+
+            // Apply to stroke dashoffset so the gold path grows as we scroll down
+            var offset = pathLen * (1 - frac);
+            path.style.strokeDashoffset = offset;
         }
-
-        var frac = (indicator - top) / (endPos - top);
-        frac = Math.max(0, Math.min(1, frac));
-
-        // If the indicator is very close to the endpoint, snap to fully complete to avoid a visible gap
-        var snapThreshold = Math.min(160, Math.max(40, Math.floor(window.innerHeight * 0.15)));
-        if (indicator + snapThreshold >= endPos) frac = 1;
-
-        // Apply to stroke dashoffset so the gold path grows as we scroll down
-        var offset = pathLen * (1 - frac);
-        path.style.strokeDashoffset = offset;
 
         // Reveal individual milestone nodes consistently as the user scrolls
         var steps = wrapper.querySelectorAll('.roadmap-step');
@@ -2035,7 +2035,12 @@
                     const startHealthMonthly = healthAnnualStart / 12;
                     const startSip = Math.max(0, totalOutgo - startLifeMonthly - startHealthMonthly);
                     
-                    let balance = 0, total = 0, currentSip = startSip;
+                    let balance = 0, total = 0;
+                    let currentBudget = totalOutgo;
+                    let currentHealthMonthly = startHealthMonthly;
+                    let currentLifeMonthly = startLifeMonthly;
+                    let currentSip = Math.max(0, currentBudget - currentLifeMonthly - currentHealthMonthly);
+                    
                     const chartPoints = [{ label: "Y0", growth: 0, invest: 0 }];
                     const stepInterval = Math.max(1, Math.floor(years / 6));
 
@@ -2052,7 +2057,9 @@
                                     invest: total
                                 });
                             }
-                            currentSip *= 1 + step;
+                            currentBudget *= (1 + step);
+                            currentHealthMonthly *= (1 + hi);
+                            currentSip = Math.max(0, currentBudget - currentLifeMonthly - currentHealthMonthly);
                         }
                     }
 
@@ -2253,7 +2260,7 @@
             if (maxVal === 0) maxVal = 1000;
 
             // Draw Subtle Horizontal Gridlines & Y-Axis Labels
-            ctx.strokeStyle = "rgba(11, 22, 40, 0.06)";
+            ctx.strokeStyle = "rgba(2, 38, 114, 0.06)";
             ctx.lineWidth = 1;
             ctx.fillStyle = "#64748B";
             ctx.font = "500 8.5px Inter, -apple-system, BlinkMacSystemFont, sans-serif";
