@@ -1908,6 +1908,177 @@
                         chartPoints: chartPoints
                     };
                 }
+            },
+            {
+                id: "home-loan-tenure",
+                num: "13",
+                name: "Home Loan Tenure + SIP",
+                fullName: "HOME LOAN TENURE + SIP CALCULATOR",
+                benefit: "Create wealth by increasing home loan tenure and investing the EMI savings in SIP.",
+                headline: "Turn your home loan into a wealth creation engine.",
+                subtext: "See how restructuring your loan to a longer tenure reduces your EMI, freeing up cash for a monthly SIP that can build massive wealth.",
+                inputs: [
+                    { id: "principal", label: "Outstanding principal", type: "slider", min: 0, max: 100000000, step: 100000, default: 6000000, prefix: "₹" },
+                    { id: "currentRate", label: "Current rate of interest", type: "slider", min: 1, max: 20, step: 0.1, default: 9.0, suffix: "%" },
+                    { id: "currentEmi", label: "Current loan EMI", type: "slider", min: 0, max: 500000, step: 500, default: 58000, prefix: "₹" },
+                    { id: "balanceMonths", label: "Balance loan tenure", type: "slider", min: 12, max: 360, step: 12, default: 240, suffix: " Months" },
+                    { id: "revisedYears", label: "Revised loan tenure", type: "slider", min: 1, max: 30, step: 1, default: 30, suffix: " Yrs" },
+                    { id: "revisedRate", label: "Revised interest rate", type: "slider", min: 1, max: 20, step: 0.1, default: 9.0, suffix: "%" },
+                    { id: "sipReturn", label: "Expected SIP return", type: "slider", min: 1, max: 30, step: 0.5, default: 12.0, suffix: "%" }
+                ],
+                calculate: function (v) {
+                    const principal = parseNum(v.principal);
+                    const currentRate = parseNum(v.currentRate) / 100;
+                    const currentEmi = parseNum(v.currentEmi);
+                    const balanceMonths = parseNum(v.balanceMonths);
+                    const revisedYears = parseNum(v.revisedYears);
+                    const revisedRate = parseNum(v.revisedRate) / 100;
+                    const sipReturn = parseNum(v.sipReturn) / 100;
+
+                    const r = revisedRate / 12;
+                    const n = revisedYears * 12;
+                    
+                    let revisedEmi = 0;
+                    if (r > 0) {
+                        revisedEmi = principal * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+                    } else {
+                        revisedEmi = principal / n;
+                    }
+                    
+                    const sipAmount = Math.max(0, currentEmi - revisedEmi);
+                    const remainingMonths = Math.max(0, n - balanceMonths);
+                    
+                    let outStandingPrincipal = 0;
+                    if (r > 0) {
+                        outStandingPrincipal = revisedEmi * (Math.pow(1 + r, remainingMonths) - 1) / (r * Math.pow(1 + r, remainingMonths));
+                    } else {
+                        outStandingPrincipal = revisedEmi * remainingMonths;
+                    }
+
+                    const rSip = sipReturn / 12;
+                    let wealthCreated = 0;
+                    if (sipAmount > 0) {
+                        wealthCreated = sipAmount * ((Math.pow(1 + rSip, balanceMonths) - 1) / rSip) * (1 + rSip);
+                    }
+
+                    const netWealthCreated = Math.max(0, wealthCreated - outStandingPrincipal);
+                    const chartPoints = [{ label: "Y0", growth: 0, invest: 0 }];
+                    const stepInterval = Math.max(1, Math.floor(balanceMonths / 12 / 6));
+
+                    for (let m = 1; m <= balanceMonths; m++) {
+                        let currentWealth = 0;
+                        if (sipAmount > 0) {
+                            currentWealth = sipAmount * ((Math.pow(1 + rSip, m) - 1) / rSip) * (1 + rSip);
+                        }
+                        
+                        if (m % 12 === 0) {
+                            const y = m / 12;
+                            if (y % stepInterval === 0 || m === balanceMonths) {
+                                chartPoints.push({
+                                    label: "Y" + y,
+                                    growth: currentWealth,
+                                    invest: sipAmount * m
+                                });
+                            }
+                        }
+                    }
+
+                    return {
+                        primaryLabel: "NET WEALTH CREATED",
+                        primaryVal: formatCompactINR(netWealthCreated),
+                        primaryUnit: "",
+                        primaryTagline: "₹ " + Math.round(wealthCreated).toLocaleString('en-IN') + " SIP wealth minus ₹ " + Math.round(outStandingPrincipal).toLocaleString('en-IN') + " remaining loan.",
+                        secondary: [
+                            { title: "WEALTH VIA SIP", val: formatCompactINR(wealthCreated) },
+                            { title: "O/S LOAN PRINCIPAL", val: formatCompactINR(outStandingPrincipal) },
+                            { title: "MONTHLY SIP (SAVINGS)", val: formatCompactINR(sipAmount) },
+                            { title: "REVISED LOAN EMI", val: formatCompactINR(revisedEmi) }
+                        ],
+                        chartPoints: chartPoints
+                    };
+                }
+            },
+            {
+                id: "hip-tip-sip",
+                num: "14",
+                name: "HIP • TIP • SIP Planner",
+                fullName: "HIP • TIP • SIP PLANNER",
+                benefit: "Plan protection, healthcare security and long-term wealth creation in one simple view.",
+                headline: "Complete Protection and Wealth Planner.",
+                subtext: "See how balancing your monthly contribution across Health Insurance, Life Insurance, and SIP creates a comprehensive financial safety net.",
+                inputs: [
+                    { id: "sip", label: "Monthly starting amount", type: "slider", min: 0, max: 200000, step: 500, default: 25000, prefix: "₹" },
+                    { id: "step", label: "Annual SIP step-up (%)", type: "slider", min: 0, max: 50, step: 0.5, default: 10, suffix: "%" },
+                    { id: "age", label: "Current age", type: "slider", min: 18, max: 59, step: 1, default: 30, suffix: " Yrs" },
+                    { id: "years", label: "Contribution years", type: "slider", min: 1, max: 60, step: 1, default: 30, suffix: " Yrs" },
+                    { id: "ret", label: "Assumed annual return", type: "slider", min: 0, max: 20, step: 0.5, default: 12, suffix: "%" },
+                    { id: "lifeCover", label: "Life insurance cover", type: "slider", min: 0, max: 100000000, step: 100000, default: 10000000, prefix: "₹" },
+                    { id: "lifePrem", label: "Annual life premium", type: "slider", min: 0, max: 200000, step: 500, default: 15000, prefix: "₹" },
+                    { id: "healthCover", label: "Health insurance cover", type: "slider", min: 0, max: 20000000, step: 50000, default: 1000000, prefix: "₹" },
+                    { id: "healthPrem", label: "Annual health premium", type: "slider", min: 0, max: 200000, step: 500, default: 20000, prefix: "₹" },
+                    { id: "hiIncrease", label: "HI premium renewal increase", type: "slider", min: 0, max: 20, step: 0.5, default: 10, suffix: "%" },
+                    { id: "healthGrowth", label: "Health cover growth", type: "dropdown", options: ["Grow with renewal assumption", "Keep health cover unchanged"], default: "Grow with renewal assumption" }
+                ],
+                calculate: function (v) {
+                    const totalOutgo = parseNum(v.sip !== undefined ? v.sip : 25000);
+                    const step = parseNum(v.step !== undefined ? v.step : 10) / 100;
+                    const age = parseNum(v.age !== undefined ? v.age : 30);
+                    const years = parseNum(v.years !== undefined ? v.years : 30);
+                    const r = parseNum(v.ret !== undefined ? v.ret : 12) / 100 / 12;
+                    const months = Math.round(years * 12);
+                    
+                    const lifeAnnual = parseNum(v.lifePrem !== undefined ? v.lifePrem : 15000);
+                    const healthAnnualStart = parseNum(v.healthPrem !== undefined ? v.healthPrem : 20000);
+                    const hi = parseNum(v.hiIncrease !== undefined ? v.hiIncrease : 10) / 100;
+                    
+                    const startLifeMonthly = lifeAnnual / 12;
+                    const startHealthMonthly = healthAnnualStart / 12;
+                    const startSip = Math.max(0, totalOutgo - startLifeMonthly - startHealthMonthly);
+                    
+                    let balance = 0, total = 0, currentSip = startSip;
+                    const chartPoints = [{ label: "Y0", growth: 0, invest: 0 }];
+                    const stepInterval = Math.max(1, Math.floor(years / 6));
+
+                    for (let m = 1; m <= months; m++) {
+                        balance = balance * (1 + r) + currentSip;
+                        total += currentSip;
+                        
+                        if (m % 12 === 0) {
+                            const y = m / 12;
+                            if (y % stepInterval === 0 || y === years) {
+                                chartPoints.push({
+                                    label: "Y" + y,
+                                    growth: balance,
+                                    invest: total
+                                });
+                            }
+                            currentSip *= 1 + step;
+                        }
+                    }
+
+                    const endAge = age + years;
+                    let life = parseNum(v.lifeCover !== undefined ? v.lifeCover : 10000000);
+                    let hc = parseNum(v.healthCover !== undefined ? v.healthCover : 1000000);
+                    if (v.healthGrowth === "Grow with renewal assumption") {
+                        hc *= Math.pow(1 + hi, years);
+                    }
+                    
+                    const gain = Math.max(0, balance - total);
+
+                    return {
+                        primaryLabel: "PROJECTED WEALTH CREATED",
+                        primaryVal: formatCompactINR(balance),
+                        primaryUnit: " by age " + Math.round(endAge),
+                        primaryTagline: "₹ " + Math.round(total).toLocaleString('en-IN') + " invested in SIP yields ₹ " + Math.round(gain).toLocaleString('en-IN') + " gain.",
+                        secondary: [
+                            { title: "LIFE COVER", val: formatCompactINR(life) },
+                            { title: "HEALTH COVER", val: formatCompactINR(hc) },
+                            { title: "TOTAL SIP INVESTED", val: formatCompactINR(total) },
+                            { title: "STARTING SIP", val: formatCompactINR(startSip) }
+                        ],
+                        chartPoints: chartPoints
+                    };
+                }
             }
         ];
 
@@ -1944,7 +2115,9 @@
             "loan-emi": '<i class="fa fa-university"></i>',
             "earn-back-emi": '<i class="fa fa-sync-alt"></i>',
             "loan-repay": '<i class="fa fa-shield-alt"></i>',
-            "lumpsum-sip": '<i class="fa fa-layer-group"></i>'
+            "lumpsum-sip": '<i class="fa fa-layer-group"></i>',
+            "home-loan-tenure": '<i class="fa fa-home"></i>',
+            "hip-tip-sip": '<i class="fa fa-shield-heart"></i>'
         };
 
         calculators.forEach(c => {
@@ -2051,18 +2224,23 @@
             // Retina display scaling
             const dpr = window.devicePixelRatio || 1;
             const rect = canvas.getBoundingClientRect();
-            canvas.width = rect.width * dpr;
-            canvas.height = rect.height * dpr;
+            const width = rect.width > 0 ? rect.width : (canvas.parentElement ? canvas.parentElement.clientWidth : 300);
+            const height = rect.height > 0 ? rect.height : 105;
+
+            canvas.width = Math.round(width * dpr);
+            canvas.height = Math.round(height * dpr);
+            canvas.style.width = width + "px";
+            canvas.style.height = height + "px";
+
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
             ctx.scale(dpr, dpr);
 
-            const width = rect.width;
-            const height = rect.height;
-            const padL = 34;
+            const padL = width < 380 ? 46 : 52;
             const padR = 12;
-            const padT = 10;
-            const padB = 16;
-            const graphW = width - padL - padR;
-            const graphH = height - padT - padB;
+            const padT = 12;
+            const padB = 20;
+            const graphW = Math.max(10, width - padL - padR);
+            const graphH = Math.max(10, height - padT - padB);
 
             ctx.clearRect(0, 0, width, height);
 
@@ -2077,8 +2255,8 @@
             // Draw Subtle Horizontal Gridlines & Y-Axis Labels
             ctx.strokeStyle = "rgba(11, 22, 40, 0.06)";
             ctx.lineWidth = 1;
-            ctx.fillStyle = "#94A3B8";
-            ctx.font = "9px Inter, sans-serif";
+            ctx.fillStyle = "#64748B";
+            ctx.font = "500 8.5px Inter, -apple-system, BlinkMacSystemFont, sans-serif";
             ctx.textAlign = "right";
 
             for (let i = 0; i <= 3; i++) {
@@ -2095,12 +2273,12 @@
                 ctx.lineTo(width - padR, y);
                 ctx.stroke();
 
-                ctx.fillText(label, padL - 4, y + 3);
+                ctx.fillText(label, padL - 5, y + 3);
             }
 
             // Function to get XY coords
             function getXY(idx, val) {
-                const x = padL + (idx / (points.length - 1)) * graphW;
+                const x = padL + (idx / Math.max(1, points.length - 1)) * graphW;
                 const y = padT + graphH - (val / maxVal) * graphH;
                 return { x, y };
             }
@@ -2121,7 +2299,7 @@
             for (let i = 0; i < points.length; i += nodeInterval) {
                 const pt = getXY(i, points[i].invest);
                 ctx.beginPath();
-                ctx.arc(pt.x, pt.y, 3, 0, Math.PI * 2);
+                ctx.arc(pt.x, pt.y, 2.5, 0, Math.PI * 2);
                 ctx.fillStyle = "#E86014";
                 ctx.fill();
             }
@@ -2151,37 +2329,36 @@
                 else ctx.lineTo(pt.x, pt.y);
             });
             ctx.strokeStyle = "#0284C7";
-            ctx.lineWidth = 3;
+            ctx.lineWidth = 2.5;
             ctx.stroke();
 
             // 4. Draw Growth End Milestone Node (Blue dot with white border)
             if (points.length > 0) {
                 const lastPt = getXY(points.length - 1, points[points.length - 1].growth);
                 ctx.beginPath();
-                ctx.arc(lastPt.x, lastPt.y, 5, 0, Math.PI * 2);
+                ctx.arc(lastPt.x, lastPt.y, 4.5, 0, Math.PI * 2);
                 ctx.fillStyle = "#0284C7";
                 ctx.fill();
                 ctx.strokeStyle = "#FFFFFF";
-                ctx.lineWidth = 2;
+                ctx.lineWidth = 1.5;
                 ctx.stroke();
             }
 
             // Draw X-axis labels
-            ctx.fillStyle = "#94A3B8";
-            ctx.font = "9.5px Inter, sans-serif";
+            ctx.fillStyle = "#64748B";
+            ctx.font = "500 8.5px Inter, -apple-system, BlinkMacSystemFont, sans-serif";
             ctx.textAlign = "center";
-            ctx.fillText("Today", padL, height - 4);
+            ctx.fillText("Today", padL + 10, height - 4);
 
-            if (points.length > 2) {
-                const midIdx1 = Math.floor(points.length / 3);
-                const midIdx2 = Math.floor((points.length * 2) / 3);
+            if (width >= 340 && points.length > 2) {
+                const midIdx1 = Math.floor(points.length / 2);
                 const pt1 = getXY(midIdx1, 0);
-                const pt2 = getXY(midIdx2, 0);
-                ctx.fillText(points[midIdx1].label || "", pt1.x, height - 4);
-                ctx.fillText(points[midIdx2].label || "", pt2.x, height - 4);
+                const midLbl = (points[midIdx1].label || "").replace(" Years", " Yrs");
+                ctx.fillText(midLbl, pt1.x, height - 4);
             }
 
-            const endText = points[points.length - 1].label || "Goal";
+            const rawEndText = points[points.length - 1].label || "Goal";
+            const endText = rawEndText.replace(" Years", " Yrs");
             ctx.textAlign = "right";
             ctx.fillText(endText, width - padR, height - 4);
         }
